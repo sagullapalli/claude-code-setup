@@ -1,0 +1,74 @@
+{
+    "permissions": {
+        "allow": [
+            "WebSearch",
+            "WebFetch",
+            "Read",
+            "Glob",
+            "Grep"
+        ]
+    },
+    "hooks": {
+        "UserPromptSubmit": [
+            {
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/inject_shared_context.py"
+                    }
+                ]
+            }
+        ],
+        "SessionStart": [
+            {
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/setup-environment.sh"
+                    }
+                ]
+            }
+        ],
+        "PostToolUse": [
+            {
+                "matcher": "*",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "jq -c 'def trunc(n): tostring | if length > n then .[0:n] + \"...\" else . end; (if (.tool_input | type) == \"string\" then (.tool_input | fromjson? // {}) else .tool_input end) as $in | (if (.tool_response | type) == \"string\" then (.tool_response | fromjson? // {}) else .tool_response end) as $out | {timestamp: (now | strftime(\"%Y-%m-%d %H:%M:%S\")), session_id, tool_use_id, tool_name, permission_mode, cwd, file_path: (($in.file_path // $in.filePath // $out.filePath // null) | if . then trunc(150) else null end), command: (($in.command // null) | if . then trunc(150) else null end), description: (($in.description // null) | if . then trunc(100) else null end), pattern: (($in.pattern // null) | if . then trunc(100) else null end), url: ($in.url // null), query: (($in.query // null) | if . then trunc(150) else null end), subagent_type: ($in.subagent_type // null), model: ($in.model // null), status: ($out.status // null), agent_id: ($out.agentId // null), num_files: ($out.numFiles // null), num_matches: ($out.numMatches // null), http_code: ($out.code // null), bytes: ($out.bytes // null), has_stderr: (($out.stderr // \"\") | length > 0), interrupted: ($out.interrupted // null), tool_input: (.tool_input | tojson | trunc(200)), tool_response: (.tool_response | tojson | trunc(200))}' >> \"$CLAUDE_PROJECT_DIR\"/.claude/logs/tool-trace.jsonl"
+                    }
+                ]
+            },
+            {
+                "matcher": "Task",
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/context_sharing.py"
+                    }
+                ]
+            }
+        ],
+        "Stop": [
+            {
+                "hooks": [
+                    {
+                        "type": "prompt",
+                        "prompt": "You are a QA reviewer. Analyze the conversation and determine if Claude should stop or continue.\n\nCheck:\n1. Were all requested tasks completed?\n2. Any unresolved errors or test failures?\n3. Did the last action succeed?\n4. Any obvious incomplete work (TODO, stubs, partial implementations)?\n\nRESPOND WITH ONLY valid JSON, no other text:\n\nTo ALLOW stopping (work is complete):\n{\"ok\": true, \"reason\": \"your reason here\"}\n\nTo BLOCK stopping and FORCE continuation (work is incomplete):\n{\"ok\": false, \"reason\": \"what needs to be done\"}",
+                        "timeout": 30
+                    }
+                ]
+            }
+        ],
+        "SessionEnd": [
+            {
+                "hooks": [
+                    {
+                        "type": "command",
+                        "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session_analytics.py"
+                    }
+                ]
+            }
+        ]
+    }
+}

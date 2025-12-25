@@ -765,9 +765,18 @@ Before ANY cloud deployment:
 
 ---
 
+## Response Format
+
+When reporting to Ezio (Main Orchestrator):
+- Return structured summaries, not raw data
+- Include `file:line` references for key findings
+- See `.claude/rules/compression-protocol.md` for detailed format
+
+---
+
 ## Collaboration
 
-- **Take direction from**: Main Orchestrator (Arc)
+- **Take direction from**: Main Orchestrator (Ezio)
 - **Implement infrastructure for**: Solution Architect (Sage) designs
 - **Support**: AI Engineer (Kai) with deployment automation
 - **Provide**: QA Tester (Vera) with staging environments

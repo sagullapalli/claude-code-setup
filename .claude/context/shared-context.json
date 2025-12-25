@@ -1,0 +1,142 @@
+[
+  {
+    "id": "fa74gkw4",
+    "agent": "AI Engineer",
+    "category": "constraint",
+    "content": "Key Decisions Made\n- **Region mandate**: All GCP resources must be in Europe regions (default: `europe-west1`)\n- No other project-specific decisions yet\n\n### 3",
+    "timestamp": "2025-12-24T20:57:05.921819",
+    "session_id": "b58ee403-0f22-4e7f-b816-288df2f77fdf",
+    "expires_at": "2025-12-25T20:57:05.921819",
+    "tags": []
+  },
+  {
+    "id": "it844tis",
+    "agent": "AI Engineer",
+    "category": "constraint",
+    "content": "**What I need to begin work**:\n- Project name and GCP project ID\n- AI/agent use case (what are we building?)\n- Any architectural constraints or preferences\n\nHow can I help you today?",
+    "timestamp": "2025-12-24T20:57:05.921819",
+    "session_id": "b58ee403-0f22-4e7f-b816-288df2f77fdf",
+    "expires_at": "2025-12-25T20:57:05.921819",
+    "tags": []
+  },
+  {
+    "id": "1apezm4n",
+    "agent": "Code Explorer",
+    "category": "constraint",
+    "content": "**skill-complexity-levels.md** (63KB) - Guidance on building skills at different complexity levels\n\n**Current Limitation**: The docs/ directory is NOT organized with subdirectories like `current/`, `r...",
+    "timestamp": "2025-12-24T21:06:24.239406",
+    "session_id": "98c752bf-6afd-4159-97ef-45327d207b24",
+    "expires_at": "2025-12-25T21:06:24.239406",
+    "tags": []
+  },
+  {
+    "id": "873xvz08",
+    "agent": "Code Explorer",
+    "category": "decision",
+    "content": "AGENT-SPECIFIC MEMORY FILES IN `.claude/memory/`\n\nEach agent has a dedicated memory file following the **STAR format** for lessons and structured context:\n\n| Agent File | Nickname | Role |\n|----------...",
+    "timestamp": "2025-12-24T21:06:24.239406",
+    "session_id": "98c752bf-6afd-4159-97ef-45327d207b24",
+    "expires_at": null,
+    "tags": []
+  },
+  {
+    "id": "vcr5h61b",
+    "agent": "Code Explorer",
+    "category": "decision",
+    "content": "AGENT DEFINITIONS IN `.claude/agents/`\n\n8 agent instruction files define roles and responsibilities:\n- `orchestrator.md` - Main coordinator (Ezio)\n- `general-worker.md` - Research and exploration (Scout)\n- `solution-architect.md` - Architecture decisions\n- `ai-eng...",
+    "timestamp": "2025-12-24T21:06:24.239406",
+    "session_id": "98c752bf-6afd-4159-97ef-45327d207b24",
+    "expires_at": null,
+    "tags": []
+  },
+  {
+    "id": "1uvb0iuw",
+    "agent": "Code Explorer",
+    "category": "decision",
+    "content": "THREE-TIER KNOWLEDGE SYSTEM INTEGRATION\n\n```\n\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502           Hierarchical Knowledge Structure                  \u2502\n\u251c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500...",
+    "timestamp": "2025-12-24T21:06:24.239406",
+    "session_id": "98c752bf-6afd-4159-97ef-45327d207b24",
+    "expires_at": null,
+    "tags": []
+  },
+  {
+    "id": "g019p4ju",
+    "agent": "Code Explorer",
+    "category": "decision",
+    "content": "DOCUMENTATION ORGANIZATION GAPS\n\n**Current State**:\n- \u2705 Skills are well-organized into focused domains\n- \u2705 Memory files use consistent STAR format\n- \u2705 Agent roles are clearly defined\n- \u274c docs/ directo...",
+    "timestamp": "2025-12-24T21:06:24.239406",
+    "session_id": "98c752bf-6afd-4159-97ef-45327d207b24",
+    "expires_at": null,
+    "tags": []
+  },
+  {
+    "id": "0jlz1sjd",
+    "agent": "Code Explorer",
+    "category": "decision",
+    "content": "Create `docs/reference/` for Architecture Decision Records (ADRs)\n2",
+    "timestamp": "2025-12-24T21:06:24.239406",
+    "session_id": "98c752bf-6afd-4159-97ef-45327d207b24",
+    "expires_at": null,
+    "tags": []
+  },
+  {
+    "id": "1hte6g22",
+    "agent": "Code Explorer",
+    "category": "constraint",
+    "content": "Let me create a detailed summary report for you:\n\n## Complete .claude/ Directory Structure Report\n\n### Directory Tree\n\n```\n.claude/\n\u251c\u2500\u2500 agents/                          # Agent role definitions (7 fil...",
+    "timestamp": "2025-12-24T21:06:33.580765",
+    "session_id": "98c752bf-6afd-4159-97ef-45327d207b24",
+    "expires_at": "2025-12-25T21:06:33.580765",
+    "tags": []
+  },
+  {
+    "id": "7vf0yzr5",
+    "agent": "Code Explorer",
+    "category": "pattern",
+    "content": "- `tdd-workflow.md` - RED-GREEN-REFACTOR cycle coordination\n\n**Modular Skill Folders**:\n- `google-adk-patterns/` - 7 focused files (01-agent-setup through 07-oauth)\n- `frontend-patterns/` - 9 focused ...",
+    "timestamp": "2025-12-24T21:06:33.580765",
+    "session_id": "98c752bf-6afd-4159-97ef-45327d207b24",
+    "expires_at": "2025-12-25T21:06:33.580765",
+    "tags": []
+  },
+  {
+    "id": "xabkgfw9",
+    "agent": "Code Explorer",
+    "category": "constraint",
+    "content": "**UserPromptSubmit** (inject_shared_context.py)\n   - Reads shared-context.json\n   - Injects previous agent decisions/constraints\n   - Enables cross-agent context sharing\n\n3",
+    "timestamp": "2025-12-24T21:06:33.580765",
+    "session_id": "98c752bf-6afd-4159-97ef-45327d207b24",
+    "expires_at": "2025-12-25T21:06:33.580765",
+    "tags": []
+  },
+  {
+    "id": "mpth4gon",
+    "agent": "Code Explorer",
+    "category": "constraint",
+    "content": "bad patterns, real-world examples\n\n**Refactoring Example**:\n- Original `gcp-deployment.md` grew to 1,945 lines \u2192 Too large to search/navigate\n- Split into 6 focused files (cloud-run, terraform, oauth,...",
+    "timestamp": "2025-12-24T21:06:33.580765",
+    "session_id": "98c752bf-6afd-4159-97ef-45327d207b24",
+    "expires_at": "2025-12-25T21:06:33.580765",
+    "tags": []
+  },
+  {
+    "id": "thkjrdj6",
+    "agent": "Solution Architect",
+    "category": "pattern",
+    "content": "Revised orchestrator.md Structure (~230 lines)\n\n```markdown\n# Main Orchestrator Agent\n\n[Nickname + description - lines 1-12]\n\n## Core Operating Principles\n[Lines 15-47 - KEEP]\n\n## Agent @ Mentions\n[Li...",
+    "timestamp": "2025-12-25T04:32:02.416997",
+    "session_id": "6f156840-7a6f-47df-8702-5b7636348000",
+    "expires_at": "2025-12-26T04:32:02.416997",
+    "tags": []
+  },
+  {
+    "id": "ywe3voo0",
+    "agent": "General Worker",
+    "category": "constraint",
+    "content": "delegation-templates/SKILL.md vs .claude/rules/agent-delegation.md\n\n**Status**: Clean\n\n**Finding**: Clear rule/skill separation maintained:\n\n- **Rule (agent-delegation.md)**: Defines WHAT must be done...",
+    "timestamp": "2025-12-25T06:41:05.626542",
+    "session_id": "94e1d1c0-cce0-4d89-bd97-657353c56a06",
+    "expires_at": "2025-12-26T06:41:05.626542",
+    "tags": []
+  }
+]

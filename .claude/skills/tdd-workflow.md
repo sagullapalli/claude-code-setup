@@ -2,7 +2,7 @@
 
 **Last Updated**: 2025-12-04
 
-This skill documents the Test-Driven Development (TDD) workflow for coordinating between Arc (Main Orchestrator), Kai (AI Engineer), and Vera (QA Tester).
+This skill documents the Test-Driven Development (TDD) workflow for coordinating between Ezio (Main Orchestrator), Kai (AI Engineer), and Vera (QA Tester).
 
 ---
 
@@ -254,7 +254,7 @@ def test_list_gtm_accounts_api_error_with_patch(test_client: TestClient, mocker)
 
 ## TDD Roles & Coordination
 
-### Arc (Main Orchestrator)
+### Ezio (Main Orchestrator)
 **Responsibilities**:
 1. Receive feature request from user
 2. Break down into testable requirements
@@ -555,7 +555,7 @@ def test_create_gtm_container():
 
 ### For New Features
 
-- [ ] **Arc**: Break down feature into testable requirements
+- [ ] **Ezio**: Break down feature into testable requirements
 - [ ] **Vera**: Write failing integration test (RED) - *Expect ImportErrors if files don't exist*
 - [ ] **Vera**: Confirm test FAILS (ImportError, 404, or AssertionError all valid)
 - [ ] **Kai**: Create file structure/skeletons to resolve ImportErrors (if needed)
@@ -566,7 +566,7 @@ def test_create_gtm_container():
 - [ ] **Kai**: Refactor code (add type hints, docstrings, error handling)
 - [ ] **Vera**: Add edge case tests (auth failures, invalid inputs, errors)
 - [ ] **Kai**: Fix edge cases
-- [ ] **Arc**: Review coverage and approve
+- [ ] **Ezio**: Review coverage and approve
 
 ### For Bug Fixes
 
@@ -575,7 +575,7 @@ def test_create_gtm_container():
 - [ ] **Kai**: Fix the bug (GREEN)
 - [ ] **Kai**: Confirm test PASSES
 - [ ] **Vera**: Add regression tests for related edge cases
-- [ ] **Arc**: Approve fix
+- [ ] **Ezio**: Approve fix
 
 ---
 
@@ -644,7 +644,7 @@ def test_create_gtm_container():
 **When NOT to use**: UI, AI behavior, IaC, exploratory work
 
 **Roles**:
-- **Arc**: Coordinate workflow, review coverage
+- **Ezio**: Coordinate workflow, review coverage
 - **Vera**: Write tests (RED phase + edge cases in REFACTOR)
 - **Kai**: Implement code (GREEN = stub + real logic, REFACTOR = cleanup)
 
@@ -652,7 +652,7 @@ def test_create_gtm_container():
 
 ---
 
-**Last Updated**: 2025-12-04 by Arc (Main Orchestrator)
+**Last Updated**: 2025-12-25 by Ezio (Main Orchestrator)
 
 **See Also**:
 - [.claude/skills/testing-strategy/00-testing-troubleshooting.md](.claude/skills/testing-strategy/00-testing-troubleshooting.md) - Common testing issues

@@ -180,7 +180,7 @@ Update memory with STAR pointer, full details go to archive (lazy-load).
 
 **ALSO reference `.claude/skills/tdd-workflow.md` for:**
 
-- **TDD Coordination**: RED-GREEN-REFACTOR workflow with Arc and Kai
+- **TDD Coordination**: RED-GREEN-REFACTOR workflow with Ezio and Kai
 - **When to use TDD**: Decision matrix for TDD vs test-after
 - **Test-first patterns**: Writing failing tests before implementation
 
@@ -723,9 +723,18 @@ Occurs only when JavaScript is disabled
 
 ---
 
+## Response Format
+
+When reporting to Ezio (Main Orchestrator):
+- Return structured summaries, not raw data
+- Include `file:line` references for key findings
+- See `.claude/rules/compression-protocol.md` for detailed format
+
+---
+
 ## Collaboration
 
-- **Take direction from**: Main Orchestrator (Arc)
+- **Take direction from**: Main Orchestrator (Ezio)
 - **Review code with**: AI Engineer (Kai)
 - **Validate deployments with**: DevOps Engineer (Devo)
 - **Test UIs with**: Frontend Engineer (Iris)

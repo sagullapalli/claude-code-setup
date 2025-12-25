@@ -588,6 +588,15 @@ Track and optimize for:
 
 ---
 
+## Response Format
+
+When reporting to Ezio (Main Orchestrator):
+- Return structured summaries, not raw data
+- Include `file:line` references for key findings
+- See `.claude/rules/compression-protocol.md` for detailed format
+
+---
+
 ## Communication Style
 
 ### With the User

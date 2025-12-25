@@ -1,9 +1,23 @@
 # Skills, Agents, and Memory: How They Work Together
 
-This guide explains the three-tier knowledge system in this project:
-1. **Skills** - Latest technical patterns (how to build)
-2. **Agents** - Role definitions and responsibilities (who does what)
-3. **Memory** - Project-specific context and learnings (what we've done and learned)
+This guide explains the knowledge system in this project and how it aligns with Claude Code best practices.
+
+---
+
+## Table of Contents
+
+1. [The Three-Tier Knowledge System](#the-three-tier-knowledge-system)
+2. [Two-System Architecture](#two-system-architecture)
+3. [Mandatory Rules](#mandatory-rules)
+4. [What Are Skills?](#what-are-skills)
+5. [Skill Complexity Levels](#skill-complexity-levels)
+6. [Path-Scoped Rules](#path-scoped-rules)
+7. [How Agents Use Skills](#how-agents-use-skills)
+8. [Memory Files](#memory-files)
+9. [Hook Enforcement](#hook-enforcement)
+10. [How to Add a New Skill](#how-to-add-a-new-skill)
+11. [How to Add a New Rule](#how-to-add-a-new-rule)
+12. [Summary](#summary)
 
 ---
 
@@ -13,19 +27,21 @@ This guide explains the three-tier knowledge system in this project:
 **Purpose**: Single source of truth for technical patterns
 **Content**: Latest API syntax, model names, code examples, best practices
 **Update frequency**: When technology changes (new versions, deprecations)
-**Example**: `google-adk-patterns.md`, `vertex-ai-models.md`
+**Example**: `google-adk-patterns/SKILL.md`, `testing-strategy/SKILL.md`
 
 ### 2. Agent Files (.claude/agents/)
 **Purpose**: Define agent roles and responsibilities
 **Content**: Who the agent is, what they do, when to delegate to them
 **Update frequency**: When roles/responsibilities change
-**Example**: `ai-engineer.md`, `solution-architect.md`
+**Example**: `ai-engineer.md`, `solution-architect.md`, `general-worker.md`
+
+**Note**: The General Worker (Scout) is a versatile agent for research, exploration, and routine tasks. Scout gathers context and returns compressed summaries to help Ezio (Main Orchestrator) make informed decisions.
 
 ### 3. Memory Files (.claude/memory/)
 **Purpose**: Project-specific context and continuous learning
 **Content**: Project config, decisions made, lessons learned, pointers to detailed docs
 **Update frequency**: After every session/milestone
-**Example**: `memory-orchestrator.md`, `memory-solution-architect.md`
+**Example**: `memory-orchestrator.md`, `memory-ai-engineer.md`, `memory-general-worker.md`
 
 ### 4. Documentation (docs/)
 **Purpose**: Detailed implementation plans, ADRs, guides
@@ -35,85 +51,251 @@ This guide explains the three-tier knowledge system in this project:
 
 ---
 
-## The Problem We Solved
+## Two-System Architecture
 
-### Before This System
-- ❌ Sub-agents had **outdated examples** in their markdown files (e.g., Gemini 1.5 instead of 2.0)
-- ❌ Agents used **wrong patterns** (raw Vertex AI instead of Google ADK)
-- ❌ Examples got **stale** as technology evolved
-- ❌ Updating required editing **multiple agent files**
-- ❌ Memory files became **bloated** with duplicate information from docs
-- ❌ Agents loaded unnecessary context, hitting token limits
+The project uses a two-system orchestrator-worker pattern:
 
-### After This System
-- ✅ Skills contain **latest patterns and models** (single source of truth)
-- ✅ Agents **invoke skills** to get current technical information
-- ✅ Memory files are **contextualized indexes** with key rationale + pointers to docs
-- ✅ Docs contain **detailed specifications** without duplication
-- ✅ Efficient context management: Memory → Docs → Skills as needed
-- ✅ Easy to update **one file** instead of many
+### System 1: Planning & Coordination (Ezio)
+- Main Orchestrator who plans and delegates
+- NEVER executes directly (no file reads, no code writing)
+- Receives compressed summaries from agents
+- Makes strategic decisions
+
+### System 2: Execution (Agents)
+| Agent | Nickname | Role |
+|-------|----------|------|
+| General Worker | Scout | Research, exploration, file ops, routine tasks |
+| Solution Architect | Sage | Architecture, design decisions |
+| AI Engineer | Kai | Backend, AI agents, APIs |
+| Frontend Engineer | Iris | UI, React, accessibility |
+| DevOps Engineer | Devo | Infrastructure, deployment |
+| QA Tester | Vera | Testing strategy, automation |
+| Frontend QA Specialist | Luna | Frontend tests, a11y |
+
+### The Flow
+1. User request → Ezio plans with TodoWrite
+2. Ezio delegates to Scout for research/context
+3. Scout returns compressed findings
+4. Ezio delegates to specialists for implementation
+5. Specialists return compressed summaries
+6. Ezio synthesizes and reports to user
+
+**Key Principle**: Scout handles exploration so Ezio's context stays clear for strategic thinking.
+
+---
+
+## Mandatory Rules
+
+Rules in `.claude/rules/` auto-load and enforce project standards.
+
+### Current Rules
+
+| Rule | Purpose | Loading |
+|------|---------|---------|
+| `agent-delegation.md` | Delegation protocol for Ezio | Always |
+| `compression-protocol.md` | Response format for all agents | Always |
+| `memory-protocol.md` | Memory file standards | Always |
+| `orchestrator-protocol.md` | Ezio's mandatory workflow | Always |
+| `pre-work-protocol.md` | Skills-first checklist | Always |
+| `quality-gates.md` | Code quality standards | Path-scoped* |
+
+*Path-scoped: Loads when accessing `backend/**/*.py`, `frontend/**/*.tsx`, `**/*.tf`
+
+### Rules vs Skills
+
+| Aspect | Rules | Skills |
+|--------|-------|--------|
+| Purpose | "You MUST do X" | "Here's HOW to do X" |
+| Loading | Auto (always or path-scoped) | Auto (by context) |
+| Content | Standards, mandates | Templates, examples |
 
 ---
 
 ## What Are Skills?
 
-**Skills** are specialized knowledge modules that agents can invoke during their work.
+**Skills** are modular capabilities that extend Claude's functionality. They're **auto-invoked** based on context - Claude discovers and uses them automatically based on their description.
 
 ### Skill Structure
 
+Skills are **directories** with a `SKILL.md` entry point:
+
 ```
 .claude/skills/
-├── google-adk-patterns.md     # Latest Google ADK agent patterns
-├── vertex-ai-models.md         # Latest Gemini 2.0 models
-├── database-design.md          # Database design patterns
-├── api-design.md               # API best practices
-├── testing-strategy.md         # Testing approaches
-├── gcp-deployment.md           # GCP deployment patterns
-├── security-best-practices.md  # Security guidelines
-└── frontend-development.md     # Frontend patterns
+└── skill-name/
+    ├── SKILL.md              # Required entry point with frontmatter
+    ├── REFERENCE.md          # Optional detailed documentation
+    ├── EXAMPLES.md           # Optional examples
+    └── scripts/              # Optional automation scripts
+        └── validate.py
 ```
 
-### Configuration
+### Skill Frontmatter
 
-Skills are registered in [.claude/config.json](.claude/config.json):
+Every `SKILL.md` requires frontmatter for discovery:
 
-```json
-{
-  "skills": {
-    "google-adk-patterns": {
-      "name": "Google ADK Patterns",
-      "description": "Latest Google ADK patterns and examples for building AI agents (2024-2025)",
-      "file": "skills/google-adk-patterns.md"
-    },
-    "vertex-ai-models": {
-      "name": "Vertex AI Models",
-      "description": "Latest Vertex AI models including Gemini 2.0 and usage best practices",
-      "file": "skills/vertex-ai-models.md"
-    }
-  }
-}
+```yaml
+---
+name: google-adk-patterns
+description: Build AI agents with Google ADK. Use when creating agents,
+             debugging persistence, or integrating with Vertex AI.
+allowed-tools: Read, Grep, Glob  # Optional - restricts tool access
+---
 ```
+
+**Critical**: The `description` field is how Claude decides when to use this skill. Make it specific with trigger keywords like "Use when...", "For...", or mention specific technologies.
+
+### Skill Discovery
+
+Skills are **auto-discovered** based on:
+1. **Location**: `.claude/skills/skill-name/` (project) or `~/.claude/skills/skill-name/` (personal)
+2. **Frontmatter**: The `description` field determines when Claude activates the skill
+
+**No registration in config.json required** - just place the skill directory with proper frontmatter.
+
+### Current Skills in This Project
+
+| Skill | Purpose | When to Use |
+|-------|---------|-------------|
+| `google-adk-patterns/` | Google ADK agent patterns | Building AI agents |
+| `testing-strategy/` | Test patterns (unit, E2E) | Writing tests |
+| `deployment/` | GCP deployment (Cloud Run, Terraform) | Deploying to GCP |
+| `frontend-patterns/` | React/TypeScript patterns | Building UIs |
+| `api-design.md` | RESTful API best practices | Creating API endpoints |
+| `database-design.md` | Database schema patterns | Designing data models |
+| `security-best-practices.md` | Security guidelines | Implementing auth, validation |
+
+---
+
+## Skill Complexity Levels
+
+Skills exist on a spectrum of complexity. Choose the right level based on your needs:
+
+| Level | Structure | Use When |
+|-------|-----------|----------|
+| **1** | Single SKILL.md | Quick references, templates, patterns (<200 lines) |
+| **2** | SKILL.md + multiple .md files | Complex domains, progressive disclosure |
+| **3** | Level 2 + scripts/ | Workflows needing validation/automation |
+| **4** | Level 3 + hooks | Self-evolving, learning systems |
+
+### Level 1 Example: API Design
+
+```
+.claude/skills/api-design/
+└── SKILL.md    # ~200 lines, quick reference
+```
+
+Best for: Templates, quick patterns, checklists
+
+### Level 2 Example: Google ADK Patterns
+
+```
+.claude/skills/google-adk-patterns/
+├── SKILL.md                    # Entry point with navigation
+├── 01-agent-setup.md           # Detailed topic
+├── 02-event-persistence.md     # Detailed topic
+├── 03-state-management.md
+└── ...
+```
+
+Best for: Complex domains where you need progressive disclosure to save tokens
+
+### Level 3 Example: Database Migration
+
+```
+.claude/skills/database-migration/
+├── SKILL.md
+├── ROLLBACK.md
+└── scripts/
+    ├── validate_migration.py    # Pre-action validation
+    └── check_breaking_changes.py
+```
+
+Best for: Workflows that need validation before execution
+
+### Level 4 Example: Skill Evolution System
+
+```
+.claude/skills/skill-evolution/
+├── SKILL.md
+├── PATTERNS.md              # Detected patterns
+├── ANTI_PATTERNS.md         # Things that don't work
+├── scripts/
+│   ├── detect_patterns.py   # Pattern detection
+│   └── promote_pattern.py   # Promotion logic
+└── (hooks in settings.json)
+```
+
+Best for: Systems that should improve over time based on experience
+
+---
+
+## Path-Scoped Rules
+
+Rules are **modular, topic-specific instructions** in `.claude/rules/` that load automatically when Claude works on matching files.
+
+### Rules vs Skills
+
+| Feature | Rules | Skills |
+|---------|-------|--------|
+| **Loading** | Auto (on file access) | Auto (by description match) |
+| **Purpose** | Guidelines, standards, conventions | Technical patterns, examples, code |
+| **Enforcement** | Suggestions (use hooks to enforce) | Reference material |
+| **Trigger** | File path pattern (`paths:` frontmatter) | Context/description match |
+
+### Rule Structure
+
+```
+.claude/rules/
+├── code-style.md           # No frontmatter = always loaded
+├── git-workflow.md         # No frontmatter = always loaded
+├── backend/
+│   ├── fastapi.md          # paths: backend/**/*.py
+│   └── adk-agents.md       # paths: **/agents/**/*.py
+├── frontend/
+│   └── react.md            # paths: frontend/**/*.tsx
+└── infra/
+    └── terraform.md        # paths: **/*.tf
+```
+
+### Path-Scoped Rule Example
+
+```markdown
+---
+paths: backend/**/*.py, src/api/**/*.py, app/routers/**/*.py
+---
+
+# FastAPI Development Rules
+
+## Endpoint Structure
+- All endpoints must have Pydantic models for request/response
+- Use appropriate HTTP status codes (200, 201, 204, 400, 404, 422)
+- Include error handling with proper logging
+- Document endpoints with docstrings
+
+## Naming Conventions
+- Router files: `{resource}.py`
+- Schema files: `{resource}.py` in schemas/
+- Use snake_case for endpoints
+```
+
+### Rule Loading Behavior
+
+| Rule Type | When Loaded | Trigger |
+|-----------|-------------|---------|
+| **No frontmatter** | Session start | Always loaded with CLAUDE.md |
+| **With `paths:` frontmatter** | On file access | When Claude reads/edits matching files |
 
 ---
 
 ## How Agents Use Skills
 
-### Agent Instructions
+### Skill Auto-Discovery
 
-Each agent (e.g., [AI Engineer](.claude/agents/ai-engineer.md)) has instructions to **invoke skills before implementation**:
+Skills are **automatically discovered** by Claude based on:
+1. The task context (what files are being worked on)
+2. The skill's `description` field (keywords that match the task)
 
-```markdown
-## ⚠️ CRITICAL: Use Skills Before Implementation
-
-**BEFORE implementing ANY AI agent or Vertex AI integration, you MUST:**
-
-1. **Invoke the `google-adk-patterns` skill** to get latest Google ADK examples
-2. **Invoke the `vertex-ai-models` skill** to get latest Gemini 2.0 models
-
-**How to invoke skills:**
-- Skill(skill="google-adk-patterns")
-- Skill(skill="vertex-ai-models")
-```
+**No explicit invocation syntax needed** - Claude reads the skill content when relevant.
 
 ### Agent Workflow
 
@@ -122,31 +304,22 @@ When a sub-agent receives a task:
 ```
 1. Task assigned: "Build an AI poem generator"
    ↓
-2. Agent reads instruction: "Use skills before implementation"
+2. Agent reads their instruction file (auto-loaded)
    ↓
-3. Agent invokes: Skill(skill="google-adk-patterns")
+3. Agent reads memory file (as instructed in delegation prompt)
    ↓
-4. Skill loads → Agent receives latest Google ADK patterns
+4. Claude discovers relevant skills based on task context
    ↓
-5. Agent invokes: Skill(skill="vertex-ai-models")
+5. Agent implements using skill patterns
    ↓
-6. Skill loads → Agent receives latest Gemini 2.0 model names
+6. Agent updates memory file
    ↓
-7. Agent implements using correct patterns and models
-   ↓
-8. Returns working code with:
-   - ✅ Google ADK (not raw Vertex AI)
-   - ✅ Gemini 2.0 Flash (not 1.5)
-   - ✅ Proper tool integration
+7. Returns working code to Main Orchestrator
 ```
 
----
+### Example: Delegation with Skills
 
-## Example: Real Collaboration with Skills
-
-### Scenario: Build AI Poem Generator
-
-**Main Orchestrator (you) delegates with full context:**
+**Main Orchestrator delegates:**
 ```
 Task(
   subagent_type="AI Engineer",
@@ -154,299 +327,32 @@ Task(
 Kai, I need you to build an AI poem generator.
 
 BACKGROUND CONTEXT:
-The user wants a simple API endpoint that generates poems using AI. This will be
-added to the existing FastAPI backend. We're using Google ADK for all agent work.
+The user wants a simple API endpoint that generates poems using AI.
 
 MEMORY & KNOWLEDGE:
-1. Read your memory file (.claude/memory/memory-ai-engineer.md) for project setup
-2. Load docs/reference/ARCHITECTURE_DECISION_SUMMARY.md for tech stack context
-3. Invoke these skills:
-   - google-adk-patterns: Latest Google ADK agent patterns
-   - vertex-ai-models: Latest Gemini 2.0 model selection
+1. Read your memory file (.claude/memory/memory-ai-engineer.md)
+2. The google-adk-patterns skill contains the latest ADK patterns
+3. Use europe-west1 region (from project config)
 
 TASK:
-Create a poem generator agent:
-1. Create agent using Google ADK and latest Gemini model
-2. Add FastAPI endpoint POST /api/poems
-3. Accept topic in request body
-4. Return generated poem
-
-DELIVERABLES:
-- Working code in backend/app/agents/poem_generator.py
-- API endpoint in backend/app/main.py
-- Simple test showing it works
+Create a poem generator agent with FastAPI endpoint POST /api/poems
 
 CONSTRAINTS:
 - Use Google ADK (not raw Vertex AI)
-- Use europe-west1 region
 - Follow existing project patterns
 """
 )
 ```
 
-**AI Engineer agent receives task:**
-
-1. **Sees only their instruction file automatically** (can't see conversation history)
-
-2. **Reads memory file** (as instructed in delegation prompt):
-   - Gets project context (GCP project ID, region, existing patterns)
-
-3. **Loads docs** (as instructed):
-   - Understands tech stack decisions
-
-4. **Invokes skills** (as instructed + from agent instructions):
-   ```
-   Skill(skill="google-adk-patterns")
-   # Receives: Latest Google ADK syntax, examples, best practices
-
-   Skill(skill="vertex-ai-models")
-   # Receives: Gemini 2.0 model names, capabilities, pricing
-   ```
-
-5. **Implements using skill knowledge:**
-   ```python
-   # Correct implementation (from skills)
-   from google import genai
-
-   client = genai.Client(
-       vertexai=True,
-       project="genai-advertisment",  # From memory file
-       location="europe-west1"         # From delegation context
-   )
-
-   agent = client.agentic.Agent(
-       model="gemini-2.0-flash-exp",  # From vertex-ai-models skill
-       system_instruction="You are a poem generator."
-   )
-
-   response = agent.generate_content("Write a poem about AI")
-   ```
-
-6. **Updates memory file** (as requested in delegation)
-
-7. **Returns implementation to Main Orchestrator**
+**AI Engineer receives task and:**
+1. Reads memory file (gets project context)
+2. Claude auto-discovers `google-adk-patterns` skill (based on "ADK" in context)
+3. Implements using patterns from skill
+4. Updates memory with learnings
 
 ---
 
-## Benefits of This Approach
-
-### 1. **Always Current**
-- Update one skill file → all agents use latest patterns
-- No stale examples in agent markdown files
-
-### 2. **Single Source of Truth**
-- Skills are the authoritative source for technical patterns
-- Agents don't have conflicting examples
-
-### 3. **Easy Maintenance**
-- New Gemini model? Update `vertex-ai-models.md`
-- New ADK pattern? Update `google-adk-patterns.md`
-- No need to update 5 different agent files
-
-### 4. **Enforced Best Practices**
-- Agent instructions **require** skill invocation
-- Can't implement without checking latest patterns
-- Quality gates built into the workflow
-
-### 5. **Scalable**
-- Add new skills as needed (e.g., `terraform-patterns.md`)
-- Agents can invoke multiple skills
-- Cross-functional knowledge sharing
-
----
-
-## Key Skills in This Project
-
-### 1. **google-adk-patterns.md**
-
-**Purpose:** Latest Google ADK agent development patterns
-
-**Contents:**
-- Google ADK installation and setup
-- Agent creation with tools
-- Function calling patterns
-- FastAPI integration
-- Multi-agent orchestration
-- RAG patterns
-- Migration from raw Vertex AI
-
-**When to use:** Building any AI agent
-
-### 2. **vertex-ai-models.md**
-
-**Purpose:** Latest Vertex AI models and usage
-
-**Contents:**
-- Gemini 2.0 model names (`gemini-2.0-flash-exp`, `gemini-2.0-pro-exp`)
-- Model capabilities (multimodal, context window, pricing)
-- Model selection guide (which model for what use case)
-- Configuration options (temperature, top-p, max tokens)
-- Performance optimization
-- Cost optimization
-
-**When to use:** Choosing or using any Vertex AI model
-
-### 3. **Other Skills**
-
-| Skill | Purpose | When to Use |
-|-------|---------|-------------|
-| `database-design.md` | Database schema patterns | Designing data models |
-| `api-design.md` | RESTful API best practices | Creating API endpoints |
-| `testing-strategy.md` | Test patterns (unit, E2E) | Writing tests |
-| `gcp-deployment.md` | GCP deployment patterns (Cloud Run, Terraform) | Deploying to GCP |
-| `security-best-practices.md` | Security guidelines | Implementing auth, validation |
-| `frontend-development.md` | React/Svelte patterns | Building UIs |
-
----
-
-## How to Add a New Skill
-
-### 1. Create the Skill File
-
-```bash
-# Create new skill file
-touch .claude/skills/my-new-skill.md
-```
-
-### 2. Write the Skill Content
-
-```markdown
-# My New Skill
-
-This skill helps with [purpose].
-
-## Usage
-
-Use this skill when you need to:
-- [Use case 1]
-- [Use case 2]
-
-## Patterns
-
-### Pattern 1: [Name]
-
-```[language]
-[code example]
-```
-
-## Best Practices
-
-- [Practice 1]
-- [Practice 2]
-```
-
-### 3. Register in config.json
-
-Edit `.claude/config.json`:
-
-```json
-{
-  "skills": {
-    "my-new-skill": {
-      "name": "My New Skill",
-      "description": "Short description of what this skill provides",
-      "file": "skills/my-new-skill.md"
-    }
-  }
-}
-```
-
-### 4. Update Agent Instructions (if needed)
-
-Edit relevant agent markdown file (e.g., `.claude/agents/ai-engineer.md`):
-
-```markdown
-**BEFORE implementing [specific task], you MUST:**
-
-1. Invoke `Skill(skill="my-new-skill")` to get latest patterns
-```
-
----
-
-## Testing Skills
-
-### Test 1: Verify Skill Registration
-
-```bash
-# Skills should be listed in config
-cat .claude/config.json | grep -A 3 "my-new-skill"
-```
-
-### Test 2: Agent Invocation (Simulated)
-
-When the Main Orchestrator delegates a task, the agent should:
-1. See skill invocation instructions in agent markdown
-2. Invoke `Skill(skill="skill-name")`
-3. Receive skill content
-4. Use patterns from skill in implementation
-
----
-
-## Best Practices for Skills
-
-### 1. **Keep Skills Focused**
-- One skill = one domain (e.g., Google ADK, not "all of GCP")
-- Clear, specific purpose
-
-### 2. **Use Examples Heavily**
-- Code examples > long explanations
-- Show good vs. bad patterns
-- Include complete working examples
-
-### 3. **Keep Current**
-- Update when new versions release
-- Add deprecation warnings for old patterns
-- Date-stamp major updates
-
-### 4. **Make Them Searchable**
-- Clear headings
-- Table of contents
-- Quick reference section at bottom
-
-### 5. **Cross-Reference**
-- Link related skills
-- "See also: `other-skill.md`"
-
----
-
-## Skills vs. Agent Markdown Files
-
-### Agent Files (`.claude/agents/`)
-- **Who** the agent is
-- **What** they're responsible for
-- **When** to delegate to them
-- **How** they should work (high-level)
-- **Instruction** to use skills
-
-### Skills (`.claude/skills/`)
-- **Latest** technical patterns
-- **Detailed** implementation examples
-- **Up-to-date** model names, APIs
-- **Best practices** for specific domains
-- **Single source of truth** for technical knowledge
-
----
-
-## Common Questions
-
-### Q: When should an agent use a skill?
-**A:** Whenever they need the **latest** patterns or **technical specifics** (model names, API syntax, etc.)
-
-### Q: Can agents work without skills?
-**A:** Yes, but they might use **outdated patterns** from their markdown file examples.
-
-### Q: How do I ensure agents use skills?
-**A:** Add **explicit instructions** in the agent markdown file (see `ai-engineer.md` for example).
-
-### Q: Can the Main Orchestrator use skills?
-**A:** Yes! The Main Orchestrator can also invoke skills to get latest information before delegating.
-
-### Q: How often should skills be updated?
-**A:** When technology changes (new model versions, new API patterns, deprecations).
-
----
-
-## Memory Files: The Contextualized Index
+## Memory Files
 
 ### Philosophy
 
@@ -457,10 +363,10 @@ Memory files are **contextualized indexes**, not detailed documentation. They pr
 3. **Pointers to detailed docs** - Links to full specifications
 4. **Continuous learning** - Lessons section updated after each session
 
-**NOT** in memory files:
-- ❌ Full implementation details (those go in docs/)
-- ❌ Complete step-by-step guides (those go in docs/)
-- ❌ Duplicate information from docs (just point to them)
+**NOT in memory files:**
+- Full implementation details (those go in docs/)
+- Complete step-by-step guides (those go in docs/)
+- Duplicate information from docs (just point to them)
 
 ### Memory File Structure
 
@@ -487,38 +393,18 @@ Last updated: YYYY-MM-DD
 - File paths that are important
 - Gotchas to remember
 
-## Lessons
-- Project-specific discoveries
-- Collaboration gotchas
-- Performance/cost insights
-- Security considerations
+## Lessons (Use STAR Format)
+### [Bug/Issue Title] (Date)
+**Situation**: [Context]
+**Task**: [Goal]
+**Action**: [Steps taken]
+**Result**: [Outcome]
+**Fix**: [File:line reference]
+**Pattern**: [Reusable lesson]
 
 ## Documentation Map
 - Table linking topics to docs
-- Brief description of what's in each doc
 ```
-
-### Usage Pattern
-
-**When agent is delegated a task:**
-1. Agent receives only their instruction file automatically
-2. Agent reads memory file (as instructed in delegation prompt)
-3. Memory file points to relevant docs for current phase
-4. Agent loads specific docs (as listed in delegation prompt)
-5. Agent invokes skills (as listed in delegation + agent instructions)
-
-**During work:**
-1. Agent notes important discoveries
-2. Agent prepares memory updates with new learnings
-
-**At end of task:**
-1. Agent updates memory with new context (status, decisions with brief rationale)
-2. Agent adds pointers to any new docs created
-3. Agent preserves lessons for future sessions (using STAR format for bugs)
-4. Agent returns results to Main Orchestrator
-
-**Critical**: Memory files are NOT automatically loaded. The Main Orchestrator must
-explicitly instruct agents to read their memory file in the delegation prompt.
 
 ### Why This Works
 
@@ -531,36 +417,146 @@ explicitly instruct agents to read their memory file in the delegation prompt.
 - Memory: "We decided X because Y. Details: [link]"
 - Docs: Full ADR with alternatives, trade-offs, implementation steps
 
-**Enables Learning:**
-- "Lessons" section grows over time
-- Each agent builds institutional knowledge
-- Future sessions benefit from past discoveries
+---
 
-**Example:**
+## Hook Enforcement
 
-**Memory (Concise)**:
-```markdown
-### ADR-002: GCS CloudStorageMemory (2025-11-28)
-**Decision**: ADK CloudStorageMemory + regional GCS bucket
-**Rationale**: Native ADK support, low cost ($0.01/mo vs Redis $30-50/mo), strong consistency
-**Configuration**: Bucket `[bucket-name]` (europe-west1, REGIONAL, STANDARD, 30-day lifecycle)
-**Full details**: [docs/reference/ARCHITECTURE_DECISION_SUMMARY.md](docs/reference/ARCHITECTURE_DECISION_SUMMARY.md)#ADR-002
+Rules are **suggestions** Claude may skip. For critical behaviors, use hooks.
+
+### Available Hook Events
+
+| Event | When It Fires | Use For |
+|-------|---------------|---------|
+| `PreToolUse` | Before any tool runs | Validation, blocking, pre-checks |
+| `PostToolUse` | After tool execution | Auto-format, logging, follow-up |
+| `Stop` | When session ends | Forced reflection, cleanup |
+| `SubagentStop` | When subagent finishes | Agent-specific reflection |
+| `SessionStart` | Session initialization | Environment setup |
+| `SessionEnd` | Session termination | Analytics, cleanup |
+
+### Example: Enforced Memory Updates
+
+**.claude/settings.json:**
+```json
+{
+  "hooks": {
+    "SubagentStop": [{
+      "hooks": [{
+        "type": "command",
+        "command": "python3 .claude/hooks/agent_reflection.py"
+      }]
+    }]
+  }
+}
 ```
 
-**Doc (Comprehensive)**:
-```markdown
-### ADR-002: GCS CloudStorageMemory for Session Storage
+**agent_reflection.py** outputs a prompt forcing the agent to update their memory file before the session ends.
 
-**Context**: Need persistent session storage that scales with Cloud Run...
-**Decision**: Use Google ADK's CloudStorageMemory backed by GCS regional bucket...
-**Alternatives Considered**:
-1. Redis Memorystore - Cost: $30-50/month, latency: 1-5ms...
-2. PostgreSQL Cloud SQL - Cost: $10-20/month, wrong tool...
-3. Custom backend - NIH syndrome...
-**Detailed Comparison**: [table with latency, cost, complexity, scalability]
-**Implementation Steps**: [15 detailed steps]
-**Rollback Plan**: [4 steps]
-**Monitoring**: [metrics to track]
+### Pattern: Rule + Hook = Guaranteed Behavior
+
+| Behavior | Rule (what/how) | Hook (must happen) |
+|----------|-----------------|-------------------|
+| Memory updates | memory-protocol.md | SubagentStop hook |
+| Tests before commit | testing.md | PreToolUse(git commit) |
+| Linting on save | code-style.md | PostToolUse(Write\|Edit) |
+
+---
+
+## How to Add a New Skill
+
+### 1. Create Skill Directory
+
+```bash
+mkdir -p .claude/skills/my-new-skill
+```
+
+### 2. Create SKILL.md with Frontmatter
+
+```markdown
+---
+name: my-new-skill
+description: Short description. Use when [trigger conditions].
+---
+
+# My New Skill
+
+## When to Use
+- Condition 1
+- Condition 2
+
+## Quick Reference
+[Main content - patterns, templates, examples]
+
+## Checklist
+- [ ] Step 1
+- [ ] Step 2
+```
+
+### 3. Test Discovery
+
+Ask Claude: "What skills do you have for [topic]?"
+Claude should mention your new skill based on the description.
+
+### 4. Upgrade to Level 2+ (If Needed)
+
+If SKILL.md exceeds 200 lines, split into multiple files:
+
+```
+.claude/skills/my-new-skill/
+├── SKILL.md              # Navigation + quick start
+├── TOPIC_A.md            # Detailed reference
+└── TOPIC_B.md            # Detailed reference
+```
+
+### Best Practices
+
+1. **Keep skills focused** - One skill = one domain
+2. **Use examples heavily** - Code examples > long explanations
+3. **Keep current** - Update when new versions release
+4. **Make descriptions specific** - Include trigger keywords
+5. **Cross-reference** - Link related skills
+
+---
+
+## How to Add a New Rule
+
+### 1. Choose Rule Type
+
+- **Universal rule** (no frontmatter): Always loaded
+- **Path-scoped rule** (with `paths:` frontmatter): Loaded when files match
+
+### 2. Create Rule File
+
+**Universal rule** (`.claude/rules/code-style.md`):
+```markdown
+# Code Style
+
+- Use 2-space indentation
+- TypeScript strict mode
+- No `any` types
+```
+
+**Path-scoped rule** (`.claude/rules/backend/fastapi.md`):
+```markdown
+---
+paths: backend/**/*.py, src/api/**/*.py
+---
+
+# FastAPI Rules
+
+- All endpoints must have Pydantic models
+- Use appropriate HTTP status codes
+```
+
+### 3. Organize by Domain
+
+```
+.claude/rules/
+├── code-style.md           # Universal
+├── git-workflow.md         # Universal
+├── backend/                # Domain-specific
+├── frontend/
+└── infra/
 ```
 
 ---
@@ -569,10 +565,11 @@ explicitly instruct agents to read their memory file in the delegation prompt.
 
 **The three-tier knowledge system solves:**
 
-1. ✅ **Skills** - Centralizing technical knowledge, latest patterns
-2. ✅ **Memory** - Efficient context management, continuous learning
-3. ✅ **Docs** - Detailed specifications without duplication
-4. ✅ **Consistency** - All agents use same patterns and understand project context
+1. **Skills** - Centralizing technical knowledge, latest patterns (auto-discovered)
+2. **Rules** - Domain-specific guidelines (auto-loaded by path)
+3. **Memory** - Efficient context management, continuous learning
+4. **Docs** - Detailed specifications without duplication
+5. **Hooks** - Guaranteed enforcement of critical behaviors
 
 **The workflow:**
 ```
@@ -580,42 +577,28 @@ User Task → Main Orchestrator → Crafts delegation with full context
                                       ↓
                                 Task tool invoked with subagent_type
                                       ↓
-                                Agent spawned (receives instruction file only)
+                                Agent spawned (receives instruction file)
                                       ↓
-                                Agent reads Memory (as instructed in delegation)
+                                Agent reads Memory (as instructed)
                                       ↓
-                                Agent loads relevant Docs (as instructed in delegation)
+                                Claude discovers relevant Skills (auto)
                                       ↓
-                                Agent invokes Skills (from instructions + delegation)
+                                Rules load when accessing matching files
                                       ↓
                                 Agent implements correctly with full context
                                       ↓
-                                Agent updates Memory (as requested in delegation)
+                                Agent updates Memory (enforced by hooks)
                                       ↓
                                 Returns to Main Orchestrator
 ```
 
-**Key Insight (Verified 2025-12-05):**
+**Key Insight:**
 Agents start with a **clean slate** - they only see their instruction file automatically.
-ALL other context (memory, docs, skills, background) must be explicitly provided in the
-delegation prompt. This is why the Main Orchestrator role is critical: you must craft
-complete delegation prompts that give agents everything they need to succeed.
+ALL other context (memory, docs, background) must be explicitly provided in the delegation prompt. Skills and rules are auto-discovered based on context and file paths.
 
 **Result:**
 - Agents always have **accurate context** without token bloat
-- Agents use **latest patterns and models**
-- Agents **learn continuously** from past sessions
+- Skills provide **latest patterns** (auto-discovered)
+- Rules enforce **domain standards** (auto-loaded)
+- Hooks **guarantee** critical behaviors
 - Easy to maintain: Update one file in the right tier
-
----
-
-## Next Steps
-
-1. ✅ Skills created: `google-adk-patterns.md`, `vertex-ai-models.md`, `gcp-deployment.md`
-2. ✅ Skills registered in `.claude/config.json`
-3. ✅ Agents updated to use skills: `ai-engineer.md`
-4. ✅ Memory files restructured as contextualized indexes
-5. ✅ Documentation in `docs/` for detailed specs
-6. 🔄 **Maintain:** Update memories after each session, skills when tech changes, docs during planning
-
-**Try it now:** Delegate a task to a sub-agent and watch them use Memory → Docs → Skills to complete it efficiently!

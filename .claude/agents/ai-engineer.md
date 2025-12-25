@@ -342,7 +342,7 @@ Skill(skill="api-design")
 
 ### TDD Workflow (NEW - 2025-12-04)
 
-**CRITICAL**: When Arc delegates a new feature or bug fix, follow the TDD workflow:
+**CRITICAL**: When Ezio delegates a new feature or bug fix, follow the TDD workflow:
 
 1. **RED Phase** (Vera writes test first):
    - Wait for Vera to write failing test
@@ -525,9 +525,18 @@ Before delivering code, verify:
 
 ---
 
+## Response Format
+
+When reporting to Ezio (Main Orchestrator):
+- Return structured summaries, not raw data
+- Include `file:line` references for key findings
+- See `.claude/rules/compression-protocol.md` for detailed format
+
+---
+
 ## Collaboration
 
-- **Take direction from**: Main Orchestrator (Arc)
+- **Take direction from**: Main Orchestrator (Ezio)
 - **Implement designs from**: Solution Architect (Sage)
 - **Use infrastructure from**: DevOps Engineer (Devo)
 - **Coordinate frontend with**: Frontend Engineer (Iris)

@@ -50,16 +50,6 @@
     "tags": []
   },
   {
-    "id": "ywe3voo0",
-    "agent": "General Worker",
-    "category": "constraint",
-    "content": "delegation-templates/SKILL.md vs .claude/rules/agent-delegation.md\n\n**Status**: Clean\n\n**Finding**: Clear rule/skill separation maintained:\n\n- **Rule (agent-delegation.md)**: Defines WHAT must be done...",
-    "timestamp": "2025-12-25T06:41:05.626542",
-    "session_id": "94e1d1c0-cce0-4d89-bd97-657353c56a06",
-    "expires_at": "2025-12-26T06:41:05.626542",
-    "tags": []
-  },
-  {
     "id": "aq1a21we",
     "agent": "General Worker",
     "category": "constraint",
@@ -327,6 +317,16 @@
     "timestamp": "2025-12-26T06:40:43.666492",
     "session_id": "5ef75ce9-afa6-44be-bee6-098ea7ab1040",
     "expires_at": "2025-12-27T06:40:43.666492",
+    "tags": []
+  },
+  {
+    "id": "gkk8pjnb",
+    "agent": "General Worker",
+    "category": "pattern",
+    "content": "|\n   | frontend-development | General frontend development patterns and best practices",
+    "timestamp": "2025-12-26T06:56:36.108751",
+    "session_id": "5ef75ce9-afa6-44be-bee6-098ea7ab1040",
+    "expires_at": "2025-12-27T06:56:36.108751",
     "tags": []
   }
 ]

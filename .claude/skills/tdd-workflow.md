@@ -1,3 +1,8 @@
+---
+name: tdd-workflow
+description: Test-Driven Development workflow and patterns. Use when following TDD methodology or writing tests before implementation.
+---
+
 # TDD Workflow - Test-Driven Development
 
 **Last Updated**: 2025-12-04

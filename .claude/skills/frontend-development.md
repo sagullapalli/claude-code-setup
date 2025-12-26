@@ -1,3 +1,8 @@
+---
+name: frontend-development
+description: General frontend development patterns and best practices. Use for frontend architecture guidance and React patterns.
+---
+
 # Frontend Development Skill
 
 Comprehensive guide for building modern, accessible, performant frontend applications with simplicity and best practices.

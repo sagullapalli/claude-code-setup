@@ -1,3 +1,8 @@
+---
+name: artifact-management
+description: File and artifact handling patterns for uploads, downloads, GCS storage. Use when working with file uploads, downloads, or cloud storage.
+---
+
 # Artifact Management Patterns
 
 > **Purpose**: Patterns for implementing artifact storage, sharing, and management with GCS backend and React frontend.

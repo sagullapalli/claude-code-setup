@@ -1,3 +1,8 @@
+---
+name: database-design
+description: PostgreSQL schema design, migrations, query optimization patterns. Use when designing databases, data models, or writing SQL.
+---
+
 # Database Design Skill
 
 This skill helps with designing efficient, scalable database schemas and data models.

@@ -1,3 +1,8 @@
+---
+name: api-design
+description: FastAPI REST API design patterns, endpoints, error handling, Pydantic models. Use when implementing APIs or designing endpoints.
+---
+
 # API Design Skill
 
 This skill helps with designing robust, scalable, and developer-friendly APIs.

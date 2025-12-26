@@ -57,11 +57,14 @@ Skills are **auto-discovered** by Claude based on context. Mention relevant tech
 
 | Task Type | Trigger Keywords | Related Skill |
 |-----------|-----------------|---------------|
-| AI Agent / LLM | Google ADK, LlmAgent, agents, Gemini | `google-adk-patterns` |
+| AI Agent / LLM | Google ADK, LlmAgent, agents, Gemini | `google-adk-patterns/` |
+| Claude Agent SDK | Claude Agent SDK, Anthropic agents, tool calling | `claude-agent-sdk-patterns/` |
+| LLM Testing | eval, LLM testing, accuracy, metrics | `llm-evaluation/` |
+| Tracing/Monitoring | observability, tracing, Langfuse, cost | `llm-observability/` |
 | API Development | FastAPI, REST, endpoints, routes | `api-design` |
 | Database Design | PostgreSQL, schema, SQLAlchemy, models | `database-design` |
-| Testing | pytest, unit tests, integration tests | `testing-strategy` |
-| Security Implementation | OWASP, authentication, CSRF, XSS, secrets | `security-best-practices` |
+| Testing | pytest, unit tests, integration tests | `testing-strategy/` |
+| Security | OWASP, authentication, CSRF, XSS | `security-best-practices` |
 
 Skills load automatically when you work with related technologies. No explicit invocation needed.
 
@@ -95,6 +98,36 @@ Skills load automatically when you work with related technologies. No explicit i
 
 ---
 
+## Live Documentation via Context7
+
+When implementing with external libraries, use Context7 MCP server for current docs.
+
+### When to Use Context7
+- Implementing new library patterns not in skills
+- Verifying current API syntax before coding
+- Checking latest model names and parameters
+- Finding code examples for unfamiliar patterns
+
+### How to Use
+1. Resolve library ID: `mcp__plugin_context7_context7__resolve-library-id`
+2. Fetch docs by topic: `mcp__plugin_context7_context7__get-library-docs`
+
+### Available Libraries (High Priority)
+| Library | Context7 ID | Use For |
+|---------|-------------|---------|
+| Claude Agent SDK | /anthropics/claude-agent-sdk-python | Agentic patterns, tools, hooks |
+| Claude SDK | /anthropics/anthropic-sdk-python | Messages API, tool calling |
+| Google ADK | /google/adk-docs | Agent framework, Gemini |
+| DeepEval | /confident-ai/deepeval | LLM evaluation metrics |
+| Langfuse | /langfuse/langfuse-docs | Observability, tracing |
+
+### Workflow
+1. Check skill for project conventions and gotchas
+2. Use Context7 for current API syntax
+3. Combine both for implementation
+
+---
+
 ## Core Principles
 
 ### Code Philosophy
@@ -116,34 +149,33 @@ Skills load automatically when you work with related technologies. No explicit i
 
 ## Technology Stack
 
-### Required Technologies
+### Default Stack (Project Preference)
 
 - **Language**: Python 3.11+ (Python 3.10+ minimum for Google ADK)
-- **Web Framework**: FastAPI (preferred) or Flask
-- **Agent Framework**: Google ADK (`google-adk` package - NOT `google-genai`)
-  - **CRITICAL**: Always invoke `google-adk-patterns` skill for latest syntax
-  - **CRITICAL**: Use `LlmAgent` from `google.adk.agents`, NOT `genai.Client()`
-  - **CRITICAL**: Use `InMemoryRunner` to execute agents
-- **Cloud Platform**: Google Cloud Platform
-- **Database**: PostgreSQL (Cloud SQL)
+- **Agent Framework**: Google ADK (primary for GCP projects)
+- **LLM Provider**: Vertex AI / Gemini models
+- **API Framework**: FastAPI
+- **Database**: PostgreSQL with pgvector for embeddings
 - **ORM**: SQLAlchemy (complex queries) or raw SQL (simple queries)
-- **LLM**: Vertex AI via Google ADK
-  - Default model: `gemini-2.0-flash` (as of Jan 2025)
-  - Get latest model names from `google-adk-patterns` skill
 - **Testing**: pytest, pytest-asyncio
 
-### Optional Technologies
+### Alternative Stacks (When Required)
 
-- **Caching**: Redis (Memorystore)
-- **Frontend**: HTMX + Tailwind (simple UIs)
-- **Validation**: Pydantic (API models)
-- **Code Quality**: black, ruff
+- **Claude/Anthropic projects**: Use Claude Agent SDK patterns (see `claude-agent-sdk-patterns/`)
+- **OpenAI projects**: Use OpenAI SDK patterns
+- **RAG-heavy apps**: Consider LlamaIndex alongside ADK
+
+### Cross-Cutting Concerns (Always Apply)
+
+- **Evaluation**: Use eval framework for all AI features (see `llm-evaluation/`)
+- **Observability**: Trace all LLM calls in production (see `llm-observability/`)
+- **Security**: Validate inputs, sanitize outputs (see `security-best-practices`)
 
 ### Decision Framework
 
 **CRITICAL: Respect User Choice**
-1. **User explicitly requests a tool/framework** → Use that (no debate)
-2. **User doesn't specify** → Use project defaults (FastAPI, Google ADK, PostgreSQL)
+1. **User explicitly requests a tool/framework** -> Use that (no debate)
+2. **User doesn't specify** -> Use project defaults (FastAPI, Google ADK, PostgreSQL)
 3. **Explain trade-offs** when asked, but respect user's final choice
 
 ### Key Decisions
@@ -151,11 +183,8 @@ Skills load automatically when you work with related technologies. No explicit i
 **When to use what:**
 - **Raw SQL** vs **SQLAlchemy**: Raw SQL for simple queries (1-2 tables), SQLAlchemy for complex (joins, relationships)
 - **FastAPI** vs **Flask**: FastAPI (modern, async, auto-docs)
-- **Google ADK for agents**:
-  - ✅ **CORRECT**: `from google.adk.agents import LlmAgent` + `InMemoryRunner`
-  - ❌ **WRONG**: `from google import genai` + `genai.Client()` (that's GenAI SDK, not ADK)
-  - ❌ **WRONG**: Raw Vertex AI (`vertexai.generative_models.GenerativeModel`)
-  - **Rule**: Always invoke `google-adk-patterns` skill before implementing agents
+- **Google ADK** vs **Claude Agent SDK**: ADK for GCP/Vertex AI projects, Claude Agent SDK for Anthropic-native projects
+- **Rule**: Always check relevant skill before implementing agents
 
 ---
 
@@ -253,6 +282,39 @@ Skills load automatically when you work with related technologies. No explicit i
 - Fallback when LLM unavailable
 - Timeout protection
 - Parse responses safely (try/except)
+
+---
+
+## LLM Evaluation Principles
+
+**Principle**: "Eyeballing outputs is ending" - formal evaluation is required.
+
+### When to Evaluate
+- Before deploying any AI feature
+- After prompt changes
+- After model updates
+
+### Metrics to Track
+- **Accuracy/correctness**: For factual tasks
+- **Relevance**: For retrieval (RAG apps)
+- **Faithfulness**: For grounded responses
+- **Latency and cost**: Per request
+
+**Skill Reference**: See `llm-evaluation/` for DeepEval patterns and metric selection.
+
+---
+
+## AI Observability Principles
+
+**Principle**: Production AI needs tracing from day one.
+
+### What to Trace
+- All LLM calls (input, output, tokens, latency)
+- Agent tool calls and decisions
+- Error rates and failure modes
+- Cost per request/session
+
+**Skill Reference**: See `llm-observability/` for Langfuse integration patterns.
 
 ---
 
@@ -408,14 +470,8 @@ Before delivering code, verify:
 
 ## Anti-Patterns to Avoid
 
-❌ **DO NOT:**
+### General Anti-Patterns
 - Implement without invoking skills for complex tasks
-- Use the **WRONG package**: Installing `google-genai` instead of `google-adk`
-- Use the **WRONG API**: Using `genai.Client()` pattern (that's GenAI SDK, not ADK)
-- Use raw Vertex AI: `vertexai.generative_models.GenerativeModel` (always use Google ADK)
-- Call `agent.generate_content()` directly without `InMemoryRunner`
-- Hardcode outdated model versions (use current models from `google-adk-patterns` skill)
-- Forget the `name` parameter on `LlmAgent` (it's required)
 - Over-engineer (abstractions, unnecessary layers)
 - Create custom exception hierarchies
 - Add features not requested
@@ -423,14 +479,30 @@ Before delivering code, verify:
 - Leave unused code
 - Skip error handling
 
-✅ **DO:**
-- Invoke `google-adk-patterns` skill before implementing agents
-- Install **correct package**: `pip install google-adk`
-- Use **correct imports**: `from google.adk.agents import LlmAgent`
-- Use **correct pattern**: `LlmAgent(model="...", name="...")` + `InMemoryRunner`
-- Include required `name` parameter on all agents
-- Use `InMemoryRunner` to execute agents
-- Use current model names from `google-adk-patterns` skill (default: `gemini-2.0-flash`)
+### LLM Anti-Patterns
+- **No evals before deploy**: Always run evaluation suite
+- **Ignoring token costs**: Track and optimize token usage
+- **Hardcoded prompts**: Use templating, version prompts
+- **No observability**: Trace all production LLM calls
+- **Outdated patterns**: Use Context7 for current API syntax
+
+### Agent Anti-Patterns
+- **Unlimited tool loops**: Set max iterations
+- **No error boundaries**: Handle LLM failures gracefully
+- **Memory without limits**: Implement context window management
+- **Wrong framework**: Use appropriate SDK for the project (ADK for GCP, Claude Agent SDK for Anthropic)
+
+### Google ADK Specific Anti-Patterns
+- Use the **WRONG package**: Installing `google-genai` instead of `google-adk`
+- Use the **WRONG API**: Using `genai.Client()` pattern (that's GenAI SDK, not ADK)
+- Use raw Vertex AI: `vertexai.generative_models.GenerativeModel` (always use Google ADK)
+- Call `agent.generate_content()` directly without `InMemoryRunner`
+- Forget the `name` parameter on `LlmAgent` (it's required)
+
+### Best Practices
+- Check relevant skill before implementing agents
+- Install **correct package** for chosen framework
+- Use current model names from skills or Context7
 - Keep solutions simple
 - Write type-safe code
 - Test critical paths

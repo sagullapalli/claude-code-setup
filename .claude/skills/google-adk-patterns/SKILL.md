@@ -1,6 +1,12 @@
 ---
-name: google-adk-patterns
+name: Google ADK Patterns
 description: Google ADK (Agent Development Kit) patterns for AI agents. Use when building agents, handling events, state, tools, or Vertex AI integration.
+tags: [google-adk, agents, gemini, vertex-ai, tools, multi-agent]
+context7_libraries:
+  - /google/adk-docs
+  - /google/adk-python
+  - /google/adk-samples
+last_verified: 2025-12-26
 ---
 
 # Google ADK Patterns - Quick Reference
@@ -8,6 +14,11 @@ description: Google ADK (Agent Development Kit) patterns for AI agents. Use when
 **Google ADK (Agent Development Kit)** is the official framework for building production-ready multi-agent applications with Vertex AI.
 
 **IMPORTANT**: Google ADK (`google-adk`) ≠ Google GenAI SDK (`google-genai`). ADK is a complete agent framework; GenAI SDK is for direct Gemini API calls.
+
+> **For current API syntax, use Context7:**
+> ```
+> get-library-docs: /google/adk-docs (topic: "agents", "tools", "session")
+> ```
 
 ---
 
@@ -156,6 +167,11 @@ response = await runner.run_debug("Hello!")
 - **PyPI**: https://pypi.org/project/google-adk/
 - **Examples**: https://github.com/google/adk-python/tree/main/examples
 
+**Context7 for live docs:**
+- `/google/adk-docs` - Official documentation (5419 snippets)
+- `/google/adk-python` - Python SDK reference
+- `/google/adk-samples` - Ready-to-use agent samples
+
 ---
 
-**Last Updated**: 2025-12-08 (Based on Google ADK 1.19.0)
+**Last Updated**: 2025-12-26 (Hybrid format with Context7 integration)

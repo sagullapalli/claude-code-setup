@@ -2,7 +2,12 @@
 
 Complete guide to implementing OAuth 2.0 authentication in ADK agents deployed to Vertex AI Agent Engine.
 
-**Last Updated:** 2025-12-08 (Based on production deployment)
+> **For current auth API, use Context7:**
+> ```
+> get-library-docs: /google/adk-docs (topic: "OAuth authentication credentials")
+> ```
+
+**Last Updated:** 2025-12-26 (Based on production deployment)
 
 ---
 

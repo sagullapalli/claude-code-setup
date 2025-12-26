@@ -2,6 +2,11 @@
 
 **CRITICAL MODULE**: Session reload gotchas that cause state loss.
 
+> **For current session API, use Context7:**
+> ```
+> get-library-docs: /google/adk-docs (topic: "session state management")
+> ```
+
 ---
 
 ## The Session Reload Gotcha

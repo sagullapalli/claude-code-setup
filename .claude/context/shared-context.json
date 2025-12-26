@@ -50,46 +50,6 @@
     "tags": []
   },
   {
-    "id": "aq1a21we",
-    "agent": "General Worker",
-    "category": "constraint",
-    "content": "- Global rules without path scoping\n\n### Content Categories Analysis\n\n**Pattern 1: Domain patterns embedded in agents that could be path-scoped:**\n- FastAPI patterns in Kai (`ai-engineer.md:288-338`)\n...",
-    "timestamp": "2025-12-25T20:27:59.008147",
-    "session_id": "a5989a42-191a-4b10-88a8-673990530fe2",
-    "expires_at": "2025-12-26T20:27:59.008147",
-    "tags": []
-  },
-  {
-    "id": "s0o1dxz2",
-    "agent": "Code Explorer",
-    "category": "pattern",
-    "content": "**Quality Checklist (DUPLICATION)**\nAppears in **4 agents** with domain-specific variations:\n- Kai: \"Quality Checklist\" (lines 422-489)\n- Iris: \"Best Practices Checklist\" (lines 515-557)\n- Devo: \"Best...",
-    "timestamp": "2025-12-25T20:36:51.523216",
-    "session_id": "633eaf0d-9e8c-404a-affc-ec78cc147485",
-    "expires_at": "2025-12-26T20:36:51.523216",
-    "tags": []
-  },
-  {
-    "id": "nahmmhik",
-    "agent": "Code Explorer",
-    "category": "pattern",
-    "content": "**GCP Deployment Patterns** (for Devo when in `terraform/` or deploying)\nCurrently in Devo's file (massive section):\n- Cloud Run configuration (lines 254-282)\n- Terraform state management (lines 419-4...",
-    "timestamp": "2025-12-25T20:36:51.523216",
-    "session_id": "633eaf0d-9e8c-404a-affc-ec78cc147485",
-    "expires_at": "2025-12-26T20:36:51.523216",
-    "tags": []
-  },
-  {
-    "id": "o7nj2ji5",
-    "agent": "Code Explorer",
-    "category": "warning",
-    "content": "**ADK (Google Agent Development Kit) Patterns** (for Kai when implementing agents)\nCurrently embedded in Kai's file (lines 244-284):\n- Import patterns\n- Agent creation\n- Runner execution\n- Common mist...",
-    "timestamp": "2025-12-25T20:36:51.523216",
-    "session_id": "633eaf0d-9e8c-404a-affc-ec78cc147485",
-    "expires_at": "2025-12-26T20:36:51.523216",
-    "tags": []
-  },
-  {
     "id": "ieg5idfa",
     "agent": "Code Explorer",
     "category": "decision",
@@ -97,16 +57,6 @@
     "timestamp": "2025-12-25T20:36:51.523216",
     "session_id": "633eaf0d-9e8c-404a-affc-ec78cc147485",
     "expires_at": null,
-    "tags": []
-  },
-  {
-    "id": "5co2wbhe",
-    "agent": "Code Explorer",
-    "category": "pattern",
-    "content": "**Memory & Continuous Learning Pattern** (Present in 6 agents)\n**Files**: Sage, Kai, Iris, Devo, Vera, Luna (all except Ezio & Scout)\n\n**Common sections** (identical structure):\n- \"BEFORE Doing ANY Wo...",
-    "timestamp": "2025-12-25T20:39:47.487686",
-    "session_id": "f73564de-30ba-406f-b10b-d7cb3bc51d72",
-    "expires_at": "2025-12-26T20:39:47.487686",
     "tags": []
   },
   {
@@ -327,6 +277,226 @@
     "timestamp": "2025-12-26T06:56:36.108751",
     "session_id": "5ef75ce9-afa6-44be-bee6-098ea7ab1040",
     "expires_at": "2025-12-27T06:56:36.108751",
+    "tags": []
+  },
+  {
+    "id": "jwshfdhr",
+    "agent": "Documentation Guide",
+    "category": "pattern",
+    "content": "The picker shows:\n- Session name or initial prompt\n- Time since last activity\n- Message count\n- Git branch (if applicable)\n\n**Keyboard shortcuts in the picker:**\n- `\u2191` / `\u2193` - Navigate between session...",
+    "timestamp": "2025-12-26T18:58:18.781435",
+    "session_id": "ca546a6e-4f6e-497f-ac63-1f46989dfd0d",
+    "expires_at": "2025-12-27T18:58:18.781435",
+    "tags": []
+  },
+  {
+    "id": "yjsck2rq",
+    "agent": "AI Engineer",
+    "category": "constraint",
+    "content": "**Permission callbacks**: `can_use_tool` for fine-grained control\n\n## Critical Gotchas Captured\n\n- Must iterate `receive_response()` or messages are lost\n- Always use `async with ClaudeSDKClient()` co...",
+    "timestamp": "2025-12-26T19:42:57.354033",
+    "session_id": "8ae9ccc6-13ef-456a-bdcd-7ae731f02d3b",
+    "expires_at": "2025-12-27T19:42:57.354033",
+    "tags": []
+  },
+  {
+    "id": "sdoebvjj",
+    "agent": "AI Engineer",
+    "category": "warning",
+    "content": "Given the hybrid approach where Context7 provides the detailed API reference, these files are appropriately lean - they focus on decision guidance, conventions, and gotchas rather than exhaustive API ...",
+    "timestamp": "2025-12-26T20:07:52.791473",
+    "session_id": "8ae9ccc6-13ef-456a-bdcd-7ae731f02d3b",
+    "expires_at": "2025-12-27T20:07:52.791473",
+    "tags": []
+  },
+  {
+    "id": "dc3ku833",
+    "agent": "AI Engineer",
+    "category": "warning",
+    "content": "**SKILL.md** (190 lines) - Main skill with frontmatter, quick reference\n   - Decision criteria: when to evaluate vs unit test\n   - Metric quick reference table\n   - Project conventions (test organizat...",
+    "timestamp": "2025-12-26T20:07:52.791473",
+    "session_id": "8ae9ccc6-13ef-456a-bdcd-7ae731f02d3b",
+    "expires_at": "2025-12-27T20:07:52.791473",
+    "tags": []
+  },
+  {
+    "id": "5nfyrwnk",
+    "agent": "AI Engineer",
+    "category": "constraint",
+    "content": "**03-rag-evaluation.md** (366 lines) - RAG-specific evaluation\n   - Retrieval metrics: ContextualPrecision, ContextualRecall, ContextualRelevancy\n   - Generation metrics: Faithfulness, AnswerRelevancy...",
+    "timestamp": "2025-12-26T20:07:52.791473",
+    "session_id": "8ae9ccc6-13ef-456a-bdcd-7ae731f02d3b",
+    "expires_at": "2025-12-27T20:07:52.791473",
+    "tags": []
+  },
+  {
+    "id": "bzr9p7ps",
+    "agent": "AI Engineer",
+    "category": "warning",
+    "content": "**Scores**: `span.score()` for observation-level, `span.score_trace()` for trace-level\n\n## Context7 Libraries Referenced\n\n- `/langfuse/langfuse-docs` (5037 snippets, high reputation)\n- `/langfuse/lang...",
+    "timestamp": "2025-12-26T20:28:29.123298",
+    "session_id": "8ae9ccc6-13ef-456a-bdcd-7ae731f02d3b",
+    "expires_at": "2025-12-27T20:28:29.123298",
+    "tags": []
+  },
+  {
+    "id": "y6rey957",
+    "agent": "AI Engineer",
+    "category": "constraint",
+    "content": "**Flushing required**: Must call `langfuse.flush()` in short-lived processes (Cloud Run, Lambda)\n2",
+    "timestamp": "2025-12-26T20:28:29.123298",
+    "session_id": "8ae9ccc6-13ef-456a-bdcd-7ae731f02d3b",
+    "expires_at": "2025-12-27T20:28:29.123298",
+    "tags": []
+  },
+  {
+    "id": "35w26uog",
+    "agent": "AI Engineer",
+    "category": "warning",
+    "content": "**Cost calculation**: Requires model in Langfuse registry OR manual `cost_details`\n\n## Memory Update\n\nUpdated `.claude/memory/memory-ai-engineer.md` with:\n- New skill location: `.claude/skills/llm-obs...",
+    "timestamp": "2025-12-26T20:28:29.123298",
+    "session_id": "8ae9ccc6-13ef-456a-bdcd-7ae731f02d3b",
+    "expires_at": "2025-12-27T20:28:29.123298",
+    "tags": []
+  },
+  {
+    "id": "vtx3b1zr",
+    "agent": "AI Engineer",
+    "category": "warning",
+    "content": "Preserved Project-Specific Content\nAll critical gotchas and learnings preserved:\n- Event persistence gotchas (manual `session.events.append()`)\n- Session reload state loss patterns\n- OAuth token stora...",
+    "timestamp": "2025-12-26T20:43:49.993597",
+    "session_id": "8ae9ccc6-13ef-456a-bdcd-7ae731f02d3b",
+    "expires_at": "2025-12-27T20:43:49.993597",
+    "tags": []
+  },
+  {
+    "id": "q0ia6qjz",
+    "agent": "AI Engineer",
+    "category": "constraint",
+    "content": "Gotchas Section - ACCURATE\n\nAll documented gotchas are real issues developers face:\n\n| Gotcha | Location | Verified |\n|--------|----------|----------|\n| Must iterate `receive_response()` | `01-sdk-bas...",
+    "timestamp": "2025-12-26T21:14:47.906534",
+    "session_id": "8ae9ccc6-13ef-456a-bdcd-7ae731f02d3b",
+    "expires_at": "2025-12-27T21:14:47.906534",
+    "tags": []
+  },
+  {
+    "id": "24pmvrec",
+    "agent": "AI Engineer",
+    "category": "warning",
+    "content": "---\n\n## Overall Assessment\n\n| Criteria | Rating | Notes |\n|----------|--------|-------|\n| Technical Accuracy | **Excellent** | All patterns match Context7 |\n| Code Runnability | **Excellent** | Exampl...",
+    "timestamp": "2025-12-26T21:14:47.906534",
+    "session_id": "8ae9ccc6-13ef-456a-bdcd-7ae731f02d3b",
+    "expires_at": "2025-12-27T21:14:47.906534",
+    "tags": []
+  },
+  {
+    "id": "gqjw1bt7",
+    "agent": "AI Engineer",
+    "category": "warning",
+    "content": "No new gotchas discovered beyond what's already documented.",
+    "timestamp": "2025-12-26T21:14:47.906534",
+    "session_id": "8ae9ccc6-13ef-456a-bdcd-7ae731f02d3b",
+    "expires_at": "2025-12-27T21:14:47.906534",
+    "tags": []
+  },
+  {
+    "id": "3b4xfy4u",
+    "agent": "AI Engineer",
+    "category": "warning",
+    "content": "**New file**: `/home/sunny/projects/interface/.claude/skills/llm-evaluation/04-ragas-rag-evaluation.md` (213 lines)\n   - RAGAS vs DeepEval decision table\n   - Core metrics overview (Faithfulness, Resp...",
+    "timestamp": "2025-12-26T21:40:06.842085",
+    "session_id": "8ae9ccc6-13ef-456a-bdcd-7ae731f02d3b",
+    "expires_at": "2025-12-27T21:40:06.842085",
+    "tags": []
+  },
+  {
+    "id": "iqi1d3m0",
+    "agent": "AI Engineer",
+    "category": "warning",
+    "content": "**Updated**: `/home/sunny/projects/interface/.claude/skills/llm-evaluation/SKILL.md`\n   - Added `/explodinggradients/ragas` to `context7_libraries` frontmatter (line 7)\n   - Added module 4 to modules ...",
+    "timestamp": "2025-12-26T21:40:06.842085",
+    "session_id": "8ae9ccc6-13ef-456a-bdcd-7ae731f02d3b",
+    "expires_at": "2025-12-27T21:40:06.842085",
+    "tags": []
+  },
+  {
+    "id": "wk6gu5yf",
+    "agent": "AI Engineer",
+    "category": "constraint",
+    "content": "217 lines - under the 250-line constraint",
+    "timestamp": "2025-12-26T21:46:46.087404",
+    "session_id": "8ae9ccc6-13ef-456a-bdcd-7ae731f02d3b",
+    "expires_at": "2025-12-27T21:46:46.087404",
+    "tags": []
+  },
+  {
+    "id": "2km7xbgp",
+    "agent": "AI Engineer",
+    "category": "constraint",
+    "content": "**Updated memory**: `/home/sunny/projects/interface/.claude/memory/memory-ai-engineer.md`\n   - Added Context7 library reference: line 67\n   - Added Phoenix key patterns lesson: lines 102-109\n\n## Key F...",
+    "timestamp": "2025-12-26T21:46:46.087404",
+    "session_id": "8ae9ccc6-13ef-456a-bdcd-7ae731f02d3b",
+    "expires_at": "2025-12-27T21:46:46.087404",
+    "tags": []
+  },
+  {
+    "id": "w5lxms6m",
+    "agent": "AI Engineer",
+    "category": "constraint",
+    "content": "I was trimming the file to meet the 250-line constraint you specified",
+    "timestamp": "2025-12-26T22:10:08.558181",
+    "session_id": "8ae9ccc6-13ef-456a-bdcd-7ae731f02d3b",
+    "expires_at": "2025-12-27T22:10:08.558181",
+    "tags": []
+  },
+  {
+    "id": "zpkxmxhi",
+    "agent": "AI Engineer",
+    "category": "pattern",
+    "content": "**Why:**\n- The detailed patterns are available via Context7 (`/googleapis/python-aiplatform`)\n- The ADK runner pattern is already documented in `google-adk-patterns/SKILL.md`\n- Following the hybrid ap...",
+    "timestamp": "2025-12-26T22:10:08.558181",
+    "session_id": "8ae9ccc6-13ef-456a-bdcd-7ae731f02d3b",
+    "expires_at": "2025-12-27T22:10:08.558181",
+    "tags": []
+  },
+  {
+    "id": "foemo5n0",
+    "agent": "AI Engineer",
+    "category": "constraint",
+    "content": "Keep full examples, accept 342 lines (exceeds constraint)\n2",
+    "timestamp": "2025-12-26T22:10:08.558181",
+    "session_id": "8ae9ccc6-13ef-456a-bdcd-7ae731f02d3b",
+    "expires_at": "2025-12-27T22:10:08.558181",
+    "tags": []
+  },
+  {
+    "id": "k2imuv8k",
+    "agent": "AI Engineer",
+    "category": "warning",
+    "content": "Remove other sections instead (less useful - gotchas and decision guide are more valuable)\n3",
+    "timestamp": "2025-12-26T22:10:08.558181",
+    "session_id": "8ae9ccc6-13ef-456a-bdcd-7ae731f02d3b",
+    "expires_at": "2025-12-27T22:10:08.558181",
+    "tags": []
+  },
+  {
+    "id": "7r7s0ib5",
+    "agent": "AI Engineer",
+    "category": "constraint",
+    "content": "Each `tool_result` block must have a corresponding `tool_use` block in the previous message.\"},\"request_id\":\"req_011CWVz5HtF92tQQ5DnTEWvs\"}",
+    "timestamp": "2025-12-26T22:10:22.160171",
+    "session_id": "8ae9ccc6-13ef-456a-bdcd-7ae731f02d3b",
+    "expires_at": "2025-12-27T22:10:22.160171",
+    "tags": []
+  },
+  {
+    "id": "w4a0v7a8",
+    "agent": "AI Engineer",
+    "category": "warning",
+    "content": "## Key Changes\n\n- **Condensed**: `.claude/skills/llm-evaluation/05-vertex-ai-evaluation.md` (343 -> 229 lines)\n- **Kept**: Decision guidance, gotchas, core patterns, Context7 pointers\n- **Removed**: F...",
+    "timestamp": "2025-12-26T22:14:27.910126",
+    "session_id": "8ae9ccc6-13ef-456a-bdcd-7ae731f02d3b",
+    "expires_at": "2025-12-27T22:14:27.910126",
     "tags": []
   }
 ]

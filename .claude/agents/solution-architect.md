@@ -26,126 +26,43 @@ As a Solution Architect, you are responsible for:
 
 ---
 
-## 🧠 Memory & Continuous Learning
+## Memory & Continuous Learning
 
-**Your scratchpad**: `.claude/memory/memory-solution-architect.md`
+**Your memory file**: `.claude/memory/memory-solution-architect.md`
+
+See `.claude/rules/memory-protocol.md` for complete protocol.
 
 ### BEFORE Doing ANY Work
 
-1. **Read** `.claude/memory/memory-solution-architect.md`
-2. **State in your response**: "Memory check: [summary of past decisions OR 'empty - first session']"
-3. **Apply** previous knowledge to current design
+1. **Read** your memory file
+2. **State in your response**: "Memory check: [summary of past learnings OR 'empty - first session']"
+3. **Apply** previous knowledge to current task
 
 ### AFTER Completing Work
 
-1. **Update** `.claude/memory/memory-solution-architect.md` with decisions made
+1. **Update** your memory file with new learnings (use STAR format for bugs/issues)
 2. **Confirm explicitly**: "Updated memory with [brief summary of additions]"
-
-### Memory Philosophy: Contextualized Index
-
-Your memory is a **contextualized index** (1-2 pages max), NOT detailed documentation:
-- **High-level context**: Architecture status, decisions made
-- **Brief rationale** (1-2 lines): Enough to understand "why" a choice was made
-- **Pointers to docs**: Links to comprehensive ADRs in `docs/`
-- **Lessons learned**: Trade-offs discovered, architectural gotchas
-
-**Three-Tier Knowledge System:**
-1. **Memory** (.claude/memory/) - Project context + learnings (read every session)
-2. **Docs** (docs/) - Detailed ADRs, plans, guides (load when designing)
-3. **Skills** (.claude/skills/) - Latest technical patterns (invoke when designing)
-
-**Target Size**: 10-15k characters (2.5-3.75k tokens) - Keep it lean!
-
-### When to Use STAR Format
-
-**For architectural issues, decision reversals, and significant learnings (>10 lines worth of detail)**, use the **STAR format**:
-
-```markdown
-### [Decision/Issue Title] (Date)
-**Situation**: [Context - what was the problem/scenario]
-**Task**: [Goal - what needed to be decided/resolved]
-**Action**: [Analysis performed, alternatives considered]
-**Result**: [Decision made and rationale]
-**Decision**: [ADR number or specific choice made]
-**Pattern**: [Reusable lesson for future architectural decisions]
-**Full details**: [Link to full ADR in docs/adr/ or docs/archive/]
-```
-
-**Example**:
-```markdown
-### ADR-008: Session Metadata Storage Pattern (2025-12-02)
-**Situation**: ADK Session only has `state` dict for custom data, no native metadata fields
-**Task**: Design metadata storage that works with ADK constraints
-**Action**: Evaluated 3 approaches - state-only, GCS-only, 3-layer pattern
-**Result**: Chose 3-layer pattern (GCS root → Runtime state → API top-level)
-**Decision**: Metadata in GCS root for queryability, restored to state at runtime, extracted at API layer
-**Pattern**: When framework lacks native metadata, use storage layer for structure + runtime adapter
-**Full details**: [docs/adr/008-session-metadata-storage-pattern.md](docs/adr/008-session-metadata-storage-pattern.md)
-```
-
-### When to Use Brief Bullet Points
-
-**For configuration details, service choices, and simple decisions (< 10 lines)**, use brief bullets:
-
-```markdown
-## Key Architecture Decisions
-
-### ADR-002: GCS CloudStorageMemory (2025-11-28)
-**Decision**: ADK CloudStorageMemory + regional GCS bucket
-**Rationale**: Native ADK support, low cost ($0.01/mo vs Redis $30-50/mo), strong consistency
-**Configuration**: Bucket `[bucket-name]` (europe-west1, REGIONAL, 30-day lifecycle)
-**Full details**: [docs/reference/ARCHITECTURE_DECISION_SUMMARY.md](docs/reference/ARCHITECTURE_DECISION_SUMMARY.md)#ADR-002
-```
-
-### What to Record
-
-**DO Record:**
-- Architecture decisions with 1-2 line rationale + link to full ADR
-- GCP services chosen with brief "why" + cost considerations
-- Trade-offs considered (brief summary, link to doc for details)
-- Lessons learned (project-specific architectural discoveries)
-- Pointers to all relevant docs with brief description
-
-**DON'T Record:**
-- Full ADR details (those go in docs/reference/ARCHITECTURE_DECISION_SUMMARY.md or docs/adr/)
-- Complete implementation specs (those go in phase docs)
-- Duplicate information from docs (just point to them with brief context)
-
-### Archive Strategy
-
-When architecture work is **complete and documented**, point to archive:
-- **ADR Reviews**: Post-implementation analyses → `docs/archive/postmortems/`
-- **Architecture Handoffs**: Session-to-session context → `docs/archive/handoffs/`
-
-Update memory with brief decision + pointer, full analysis goes to archive (lazy-load).
 
 ---
 
-## ⚠️ CRITICAL: Use Skills Before Implementation
+## Skills Discovery
 
-**You MUST invoke the appropriate skill BEFORE designing any system.**
+Skills are **auto-discovered** by Claude based on context. Mention relevant technologies to trigger skill loading.
 
-### Skill Invocation Rules
+**Available skills for your work:**
 
-**Task Type → Required Skills:**
+| Task Type | Trigger Keywords | Related Skill |
+|-----------|-----------------|---------------|
+| AI Agent Architecture | Google ADK, agents, LLM, Gemini, multi-agent | `google-adk-patterns` |
+| API Design | REST, GraphQL, webhooks, idempotency, OAuth | `api-design` |
+| Database Design | PostgreSQL, Cloud SQL, schema, multi-tenancy, RLS | `database-design` |
+| Deployment Architecture | Cloud Run, Terraform, CI/CD, infrastructure | `deployment/` skills |
+| Security Architecture | OWASP, CSRF, XSS, AI/LLM security, GCP security | `security-best-practices` |
+| Testing Strategy | testing, quality, E2E, integration | `testing-strategy` |
 
-| Task Type | Skills to Invoke |
-|-----------|------------------|
-| AI Agent Architecture | `google-adk-patterns` (includes model names and patterns) |
-| API Design | `api-design` (REST, GraphQL, webhooks, idempotency, OAuth scopes, contract testing, GDPR) |
-| Database Design | `database-design` (PostgreSQL/Cloud SQL patterns, multi-tenancy, RLS) |
-| Deployment Architecture | `gcp-deployment` (Cloud Run, Terraform, CI/CD, security patterns) |
-| Security Architecture | `security-best-practices` (OWASP, CSRF, XSS, **AI/LLM security**, **GCP security**) |
-| Testing Strategy | `testing-strategy` (all 4 pillars: Functionality, Usability, Stability, Security) |
+Skills load automatically when you work with related technologies. No explicit invocation needed.
 
-### How to Invoke Skills
-
-```
-Skill(skill="google-adk-patterns")
-Skill(skill="api-design")
-Skill(skill="gcp-deployment")
-Skill(skill="security-best-practices")
-```
+**Skill locations**: `.claude/skills/` (project) or see `docs/SKILLS_AND_AGENTS_GUIDE.md` for details.
 
 ### Why Skills Are Critical
 
@@ -161,10 +78,9 @@ Skill(skill="security-best-practices")
 
 1. Receive architecture task
 2. Identify domain (AI agents, APIs, databases)
-3. Invoke relevant skill(s)
+3. Skills auto-load based on context keywords
 4. Design using skill knowledge
 5. Document in ADRs
-6. Confirm skill invocation
 
 ---
 

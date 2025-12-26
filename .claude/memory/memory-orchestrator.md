@@ -15,6 +15,7 @@ Last updated: 2025-12-25
 **Quick Reference**:
 | Nickname | subagent_type |
 |----------|---------------|
+| Scout | `General Worker` |
 | Sage | `Solution Architect` |
 | Kai | `AI Engineer` |
 | Iris | `Frontend Engineer` |
@@ -57,6 +58,13 @@ Last updated: 2025-12-25
 ---
 
 ## Lessons Learned
+
+### Task Triage Reinforcement (2025-12-25)
+**Situation**: User noticed Ezio sometimes executing tasks directly instead of delegating
+**Task**: Strengthen delegation enforcement in instructions
+**Action**: Added "⚠️ STOP: Task Triage" section at top of orchestrator.md with explicit checklist
+**Result**: Clear 4-step checkpoint before any action: task type → context needed → who executes → confirm delegation
+**Pattern**: Need prominent "STOP" trigger at point of task receipt, not just rules in separate files
 
 ### Reorganization: CLAUDE.md & orchestrator.md (2025-12-25)
 **Situation**: CLAUDE.md (209 lines) and orchestrator.md (850 lines) were too large with mixed concerns

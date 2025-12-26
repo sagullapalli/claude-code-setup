@@ -1,35 +1,5 @@
 [
   {
-    "id": "fa74gkw4",
-    "agent": "AI Engineer",
-    "category": "constraint",
-    "content": "Key Decisions Made\n- **Region mandate**: All GCP resources must be in Europe regions (default: `europe-west1`)\n- No other project-specific decisions yet\n\n### 3",
-    "timestamp": "2025-12-24T20:57:05.921819",
-    "session_id": "b58ee403-0f22-4e7f-b816-288df2f77fdf",
-    "expires_at": "2025-12-25T20:57:05.921819",
-    "tags": []
-  },
-  {
-    "id": "it844tis",
-    "agent": "AI Engineer",
-    "category": "constraint",
-    "content": "**What I need to begin work**:\n- Project name and GCP project ID\n- AI/agent use case (what are we building?)\n- Any architectural constraints or preferences\n\nHow can I help you today?",
-    "timestamp": "2025-12-24T20:57:05.921819",
-    "session_id": "b58ee403-0f22-4e7f-b816-288df2f77fdf",
-    "expires_at": "2025-12-25T20:57:05.921819",
-    "tags": []
-  },
-  {
-    "id": "1apezm4n",
-    "agent": "Code Explorer",
-    "category": "constraint",
-    "content": "**skill-complexity-levels.md** (63KB) - Guidance on building skills at different complexity levels\n\n**Current Limitation**: The docs/ directory is NOT organized with subdirectories like `current/`, `r...",
-    "timestamp": "2025-12-24T21:06:24.239406",
-    "session_id": "98c752bf-6afd-4159-97ef-45327d207b24",
-    "expires_at": "2025-12-25T21:06:24.239406",
-    "tags": []
-  },
-  {
     "id": "873xvz08",
     "agent": "Code Explorer",
     "category": "decision",
@@ -80,56 +50,6 @@
     "tags": []
   },
   {
-    "id": "1hte6g22",
-    "agent": "Code Explorer",
-    "category": "constraint",
-    "content": "Let me create a detailed summary report for you:\n\n## Complete .claude/ Directory Structure Report\n\n### Directory Tree\n\n```\n.claude/\n\u251c\u2500\u2500 agents/                          # Agent role definitions (7 fil...",
-    "timestamp": "2025-12-24T21:06:33.580765",
-    "session_id": "98c752bf-6afd-4159-97ef-45327d207b24",
-    "expires_at": "2025-12-25T21:06:33.580765",
-    "tags": []
-  },
-  {
-    "id": "7vf0yzr5",
-    "agent": "Code Explorer",
-    "category": "pattern",
-    "content": "- `tdd-workflow.md` - RED-GREEN-REFACTOR cycle coordination\n\n**Modular Skill Folders**:\n- `google-adk-patterns/` - 7 focused files (01-agent-setup through 07-oauth)\n- `frontend-patterns/` - 9 focused ...",
-    "timestamp": "2025-12-24T21:06:33.580765",
-    "session_id": "98c752bf-6afd-4159-97ef-45327d207b24",
-    "expires_at": "2025-12-25T21:06:33.580765",
-    "tags": []
-  },
-  {
-    "id": "xabkgfw9",
-    "agent": "Code Explorer",
-    "category": "constraint",
-    "content": "**UserPromptSubmit** (inject_shared_context.py)\n   - Reads shared-context.json\n   - Injects previous agent decisions/constraints\n   - Enables cross-agent context sharing\n\n3",
-    "timestamp": "2025-12-24T21:06:33.580765",
-    "session_id": "98c752bf-6afd-4159-97ef-45327d207b24",
-    "expires_at": "2025-12-25T21:06:33.580765",
-    "tags": []
-  },
-  {
-    "id": "mpth4gon",
-    "agent": "Code Explorer",
-    "category": "constraint",
-    "content": "bad patterns, real-world examples\n\n**Refactoring Example**:\n- Original `gcp-deployment.md` grew to 1,945 lines \u2192 Too large to search/navigate\n- Split into 6 focused files (cloud-run, terraform, oauth,...",
-    "timestamp": "2025-12-24T21:06:33.580765",
-    "session_id": "98c752bf-6afd-4159-97ef-45327d207b24",
-    "expires_at": "2025-12-25T21:06:33.580765",
-    "tags": []
-  },
-  {
-    "id": "thkjrdj6",
-    "agent": "Solution Architect",
-    "category": "pattern",
-    "content": "Revised orchestrator.md Structure (~230 lines)\n\n```markdown\n# Main Orchestrator Agent\n\n[Nickname + description - lines 1-12]\n\n## Core Operating Principles\n[Lines 15-47 - KEEP]\n\n## Agent @ Mentions\n[Li...",
-    "timestamp": "2025-12-25T04:32:02.416997",
-    "session_id": "6f156840-7a6f-47df-8702-5b7636348000",
-    "expires_at": "2025-12-26T04:32:02.416997",
-    "tags": []
-  },
-  {
     "id": "ywe3voo0",
     "agent": "General Worker",
     "category": "constraint",
@@ -137,6 +57,276 @@
     "timestamp": "2025-12-25T06:41:05.626542",
     "session_id": "94e1d1c0-cce0-4d89-bd97-657353c56a06",
     "expires_at": "2025-12-26T06:41:05.626542",
+    "tags": []
+  },
+  {
+    "id": "aq1a21we",
+    "agent": "General Worker",
+    "category": "constraint",
+    "content": "- Global rules without path scoping\n\n### Content Categories Analysis\n\n**Pattern 1: Domain patterns embedded in agents that could be path-scoped:**\n- FastAPI patterns in Kai (`ai-engineer.md:288-338`)\n...",
+    "timestamp": "2025-12-25T20:27:59.008147",
+    "session_id": "a5989a42-191a-4b10-88a8-673990530fe2",
+    "expires_at": "2025-12-26T20:27:59.008147",
+    "tags": []
+  },
+  {
+    "id": "s0o1dxz2",
+    "agent": "Code Explorer",
+    "category": "pattern",
+    "content": "**Quality Checklist (DUPLICATION)**\nAppears in **4 agents** with domain-specific variations:\n- Kai: \"Quality Checklist\" (lines 422-489)\n- Iris: \"Best Practices Checklist\" (lines 515-557)\n- Devo: \"Best...",
+    "timestamp": "2025-12-25T20:36:51.523216",
+    "session_id": "633eaf0d-9e8c-404a-affc-ec78cc147485",
+    "expires_at": "2025-12-26T20:36:51.523216",
+    "tags": []
+  },
+  {
+    "id": "nahmmhik",
+    "agent": "Code Explorer",
+    "category": "pattern",
+    "content": "**GCP Deployment Patterns** (for Devo when in `terraform/` or deploying)\nCurrently in Devo's file (massive section):\n- Cloud Run configuration (lines 254-282)\n- Terraform state management (lines 419-4...",
+    "timestamp": "2025-12-25T20:36:51.523216",
+    "session_id": "633eaf0d-9e8c-404a-affc-ec78cc147485",
+    "expires_at": "2025-12-26T20:36:51.523216",
+    "tags": []
+  },
+  {
+    "id": "o7nj2ji5",
+    "agent": "Code Explorer",
+    "category": "warning",
+    "content": "**ADK (Google Agent Development Kit) Patterns** (for Kai when implementing agents)\nCurrently embedded in Kai's file (lines 244-284):\n- Import patterns\n- Agent creation\n- Runner execution\n- Common mist...",
+    "timestamp": "2025-12-25T20:36:51.523216",
+    "session_id": "633eaf0d-9e8c-404a-affc-ec78cc147485",
+    "expires_at": "2025-12-26T20:36:51.523216",
+    "tags": []
+  },
+  {
+    "id": "ieg5idfa",
+    "agent": "Code Explorer",
+    "category": "decision",
+    "content": "**\"Remember\" closing statements**\n   - Template: Keep one master version in orchestrator-protocol.md\n   - Savings: ~0.5-1KB per agent \u00d7 8 = ~4-8KB\n\n---\n\n### UNIQUE CONTENT BY AGENT (WORTH PRESERVING)\n...",
+    "timestamp": "2025-12-25T20:36:51.523216",
+    "session_id": "633eaf0d-9e8c-404a-affc-ec78cc147485",
+    "expires_at": null,
+    "tags": []
+  },
+  {
+    "id": "5co2wbhe",
+    "agent": "Code Explorer",
+    "category": "pattern",
+    "content": "**Memory & Continuous Learning Pattern** (Present in 6 agents)\n**Files**: Sage, Kai, Iris, Devo, Vera, Luna (all except Ezio & Scout)\n\n**Common sections** (identical structure):\n- \"BEFORE Doing ANY Wo...",
+    "timestamp": "2025-12-25T20:39:47.487686",
+    "session_id": "f73564de-30ba-406f-b10b-d7cb3bc51d72",
+    "expires_at": "2025-12-26T20:39:47.487686",
+    "tags": []
+  },
+  {
+    "id": "yjtau0vz",
+    "agent": "Code Explorer",
+    "category": "decision",
+    "content": "**Frontend Testing Patterns** (Luna - lines 579-587)\n- **Current**: Pointer to skill files (testing-strategy, frontend-development, debugging-patterns)\n- **Opportunity**: This is already correct - jus...",
+    "timestamp": "2025-12-25T20:39:47.487686",
+    "session_id": "f73564de-30ba-406f-b10b-d7cb3bc51d72",
+    "expires_at": null,
+    "tags": []
+  },
+  {
+    "id": "ni5bq9im",
+    "agent": "General Worker",
+    "category": "pattern",
+    "content": "`security-best-practices.md`\n\n**Current Structure**:\n- Single file (85,564 bytes)\n- No YAML frontmatter - starts with `# Security Best Practices Skill`\n- Location: `/home/sunny/projects/interface/.cla...",
+    "timestamp": "2025-12-26T04:38:16.613989",
+    "session_id": "a5989a42-191a-4b10-88a8-673990530fe2",
+    "expires_at": "2025-12-27T04:38:16.613989",
+    "tags": []
+  },
+  {
+    "id": "gbonnq2m",
+    "agent": "Code Explorer",
+    "category": "constraint",
+    "content": "Memory Section Analysis\n\n**FINDING: Significant duplication between agent Memory sections and memory-protocol.md**\n\n**Duplication Details:**\n- **ALL agent files** (ai-engineer.md:26-115, devops-engine...",
+    "timestamp": "2025-12-26T05:33:50.386423",
+    "session_id": "1180239d-91bc-4beb-bcf2-664a6c321b59",
+    "expires_at": "2025-12-27T05:33:50.386423",
+    "tags": []
+  },
+  {
+    "id": "auy7uoeh",
+    "agent": "Code Explorer",
+    "category": "constraint",
+    "content": "Skill Invocation Issues\n\n**FINDING: Inconsistent and outdated skill invocation syntax across agent files**\n\n**Current Patterns Found:**\n\n| Agent File | Skill Reference Style | Lines |\n|---|---|---|\n| ...",
+    "timestamp": "2025-12-26T05:33:50.386423",
+    "session_id": "1180239d-91bc-4beb-bcf2-664a6c321b59",
+    "expires_at": "2025-12-27T05:33:50.386423",
+    "tags": []
+  },
+  {
+    "id": "syyd55ky",
+    "agent": "Code Explorer",
+    "category": "constraint",
+    "content": "\u2705 Enhance Scout's agent file (already leanest, could be model for others)\n\n---\n\n## Key Files for Reference\n\n| Finding | File:Line |\n|---|---|\n| Memory protocol (source of truth) | `.claude/rules/memor...",
+    "timestamp": "2025-12-26T05:33:50.386423",
+    "session_id": "1180239d-91bc-4beb-bcf2-664a6c321b59",
+    "expires_at": "2025-12-27T05:33:50.386423",
+    "tags": []
+  },
+  {
+    "id": "ut5flkmo",
+    "agent": "Code Explorer",
+    "category": "constraint",
+    "content": "---\n\n## Recommended Additions to Kai's Skillset (Prioritized)\n\n### TIER 1: Critical Additions (Must Know)\n\n1",
+    "timestamp": "2025-12-26T05:35:26.826453",
+    "session_id": "1180239d-91bc-4beb-bcf2-664a6c321b59",
+    "expires_at": "2025-12-27T05:35:26.826453",
+    "tags": []
+  },
+  {
+    "id": "cwhvpf03",
+    "agent": "Code Explorer",
+    "category": "warning",
+    "content": "**Multi-Model LLM Abstraction**\n   - Tools: LiteLLM (open-source), Vercel AI SDK, OpenRouter, Portkey\n   - Why: Enterprise-standard for switching between OpenAI, Anthropic, Google, Bedrock, Cohere\n   ...",
+    "timestamp": "2025-12-26T05:35:26.826453",
+    "session_id": "1180239d-91bc-4beb-bcf2-664a6c321b59",
+    "expires_at": "2025-12-27T05:35:26.826453",
+    "tags": []
+  },
+  {
+    "id": "sp5l3mt1",
+    "agent": "Code Explorer",
+    "category": "insight",
+    "content": "**Alternative Agent Frameworks**\n   - Primary: Claude Agent SDK (already known), LangChain/LangGraph, AutoGen, CrewAI\n   - Why: Different frameworks excel at different tasks (CrewAI for multi-agent or...",
+    "timestamp": "2025-12-26T05:35:26.826453",
+    "session_id": "1180239d-91bc-4beb-bcf2-664a6c321b59",
+    "expires_at": "2025-12-27T05:35:26.826453",
+    "tags": []
+  },
+  {
+    "id": "xmg4ym2q",
+    "agent": "Code Explorer",
+    "category": "pattern",
+    "content": "**RAG & Vector Databases**\n   - Tools: Pinecone (managed, fast), Weaviate (hybrid search), Qdrant (open-source, cost-effective)\n   - Why: Standard for knowledge-intensive agents\n   - Best practice: Hy...",
+    "timestamp": "2025-12-26T05:35:26.826453",
+    "session_id": "1180239d-91bc-4beb-bcf2-664a6c321b59",
+    "expires_at": "2025-12-27T05:35:26.826453",
+    "tags": []
+  },
+  {
+    "id": "5w1iu0y0",
+    "agent": "Code Explorer",
+    "category": "insight",
+    "content": "Qdrant trade-offs)\n   - Hybrid search implementation\n   - Metadata discipline patterns\n   - Chunking strategies by document type\n\n---\n\n## Key Insights for Kai's Evolution\n\n**Emergent Pattern**: Produc...",
+    "timestamp": "2025-12-26T05:35:26.826453",
+    "session_id": "1180239d-91bc-4beb-bcf2-664a6c321b59",
+    "expires_at": "2025-12-27T05:35:26.826453",
+    "tags": []
+  },
+  {
+    "id": "xb6z6iam",
+    "agent": "Code Explorer",
+    "category": "pattern",
+    "content": "- Analytics Vidhya](https://www.analyticsvidhya.com/blog/2025/03/agent-sdk-vs-crewai-vs-langchain/)\n- [14 AI Agent Frameworks Compared - Softcery](https://softcery.com/lab/top-14-ai-agent-frameworks-o...",
+    "timestamp": "2025-12-26T05:35:26.826453",
+    "session_id": "1180239d-91bc-4beb-bcf2-664a6c321b59",
+    "expires_at": "2025-12-27T05:35:26.826453",
+    "tags": []
+  },
+  {
+    "id": "pbz0dtmi",
+    "agent": "Solution Architect",
+    "category": "warning",
+    "content": "Duplicating 80-90 lines in each agent file:\n- Creates maintenance burden (update in 7 places vs 1)\n- Bloats agent context unnecessarily\n- Violates single source of truth principle\n\n### Model to Follow...",
+    "timestamp": "2025-12-26T05:38:01.952611",
+    "session_id": "1180239d-91bc-4beb-bcf2-664a6c321b59",
+    "expires_at": "2025-12-27T05:38:01.952611",
+    "tags": []
+  },
+  {
+    "id": "lw5pnk7i",
+    "agent": "Solution Architect",
+    "category": "decision",
+    "content": "**Agent-specific items to record:**\n- [Item 1 specific to this agent's domain]\n- [Item 2 specific to this agent's domain]\n- [Item 3 specific to this agent's domain]\n- [Item 4 specific to this agent's ...",
+    "timestamp": "2025-12-26T05:38:01.952611",
+    "session_id": "1180239d-91bc-4beb-bcf2-664a6c321b59",
+    "expires_at": null,
+    "tags": []
+  },
+  {
+    "id": "zp3n8e3i",
+    "agent": "General Worker",
+    "category": "pattern",
+    "content": "**Quote Comparison**:\n\n**Kai's file (lines 41-47)**:\n```markdown\n### Memory Philosophy: Contextualized Index\n\nYour memory is a **contextualized index** (1-2 pages max), NOT detailed documentation:\n- *...",
+    "timestamp": "2025-12-26T05:39:49.923276",
+    "session_id": "5ef75ce9-afa6-44be-bee6-098ea7ab1040",
+    "expires_at": "2025-12-27T05:39:49.923276",
+    "tags": []
+  },
+  {
+    "id": "c5maomg0",
+    "agent": "General Worker",
+    "category": "constraint",
+    "content": "```\n\n### Comparison Summary\n\n| Aspect | Kai's Current | Guide's Approach |\n|--------|--------------|------------------|\n| Discovery | Explicit `Skill(tool=\"...\")` call | Auto-discovered by context |\n|...",
+    "timestamp": "2025-12-26T05:39:49.923276",
+    "session_id": "5ef75ce9-afa6-44be-bee6-098ea7ab1040",
+    "expires_at": "2025-12-27T05:39:49.923276",
+    "tags": []
+  },
+  {
+    "id": "99iyb7w5",
+    "agent": "General Worker",
+    "category": "warning",
+    "content": "Broaden Scope (Low Priority - Depends on Project Direction)\n\nIf the project plans to use other LLM providers/frameworks:\n- Rename \"Google ADK Quick Reference\" to \"Agent Framework Reference\"\n- Make ADK...",
+    "timestamp": "2025-12-26T05:39:49.923276",
+    "session_id": "5ef75ce9-afa6-44be-bee6-098ea7ab1040",
+    "expires_at": "2025-12-27T05:39:49.923276",
+    "tags": []
+  },
+  {
+    "id": "kglup0wt",
+    "agent": "General Worker",
+    "category": "warning",
+    "content": "**\"Archive Strategy\"** - Copied nearly verbatim\n\n### Scout's Memory Section (Lines 171-179) - Only 9 lines:\n```markdown\n## Memory & Learning\n**Your memory file**: `.claude/memory/memory-general-worker...",
+    "timestamp": "2025-12-26T05:41:17.918398",
+    "session_id": "5ef75ce9-afa6-44be-bee6-098ea7ab1040",
+    "expires_at": "2025-12-27T05:41:17.918398",
+    "tags": []
+  },
+  {
+    "id": "7sgikk63",
+    "agent": "General Worker",
+    "category": "warning",
+    "content": "---\n\n## Task 1: Scout Memory Flow Analysis\n\n### Current State of Memory File\n- **File**: `/home/sunny/projects/interface/.claude/memory/memory-general-worker.md`\n- **Last updated**: 2025-12-25\n- **Con...",
+    "timestamp": "2025-12-26T06:08:07.275731",
+    "session_id": "5ef75ce9-afa6-44be-bee6-098ea7ab1040",
+    "expires_at": "2025-12-27T06:08:07.275731",
+    "tags": []
+  },
+  {
+    "id": "fejqjcib",
+    "agent": "General Worker",
+    "category": "pattern",
+    "content": "Always use remote state with GCS backend\" `:26` | **Aligned** |\n| **State locking** | \"Enable state locking\" `:408` | \"Use state locking (automatic with GCS)\" `:65` | **Aligned** |\n| **Never commit st...",
+    "timestamp": "2025-12-26T06:08:07.275731",
+    "session_id": "5ef75ce9-afa6-44be-bee6-098ea7ab1040",
+    "expires_at": "2025-12-27T06:08:07.275731",
+    "tags": []
+  },
+  {
+    "id": "ty8epyci",
+    "agent": "General Worker",
+    "category": "pattern",
+    "content": "**Docker Section** (`devops-engineer.md:292-303`)\n   - Consolidated principles, layers, and security into single table\n   - Added pointers to `validation.md` and `troubleshooting.md`\n   - Lines remove...",
+    "timestamp": "2025-12-26T06:37:09.028569",
+    "session_id": "5ef75ce9-afa6-44be-bee6-098ea7ab1040",
+    "expires_at": "2025-12-27T06:37:09.028569",
+    "tags": []
+  },
+  {
+    "id": "ti28putz",
+    "agent": "General Worker",
+    "category": "warning",
+    "content": "## Key Findings\n\n### Target Pattern (Kai - ai-engineer.md:45-95)\nThe reference pattern includes:\n- Header: \"## Skills Discovery\"\n- Explanation of auto-discovery (lines 47-48)\n- Guidance on when to ski...",
+    "timestamp": "2025-12-26T06:40:43.666492",
+    "session_id": "5ef75ce9-afa6-44be-bee6-098ea7ab1040",
+    "expires_at": "2025-12-27T06:40:43.666492",
     "tags": []
   }
 ]

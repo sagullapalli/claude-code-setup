@@ -40,8 +40,14 @@ Kai should review the refresh logic for the new requirement.
 Always format your response:
 
 ```markdown
+## Confidence
+[High/Medium/Low] - [One line on why]
+
 ## Summary
 [2-3 sentences: What did you find? What's the answer?]
+
+## Concerns (if any)
+- [Risk or assumption that needs validation]
 
 ## Key Findings
 - [Finding 1 with file:line reference]

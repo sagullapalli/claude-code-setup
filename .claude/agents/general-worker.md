@@ -168,15 +168,22 @@ Based on my research, this requires [Specialist Name]:
 
 ---
 
-## Memory & Learning
+## Memory & Continuous Learning
 
 **Your memory file**: `.claude/memory/memory-general-worker.md`
 
-Update after significant research sessions:
-- Key discoveries about the codebase
-- Useful file paths and patterns
-- Gotchas encountered
-- Efficient search strategies found
+See `.claude/rules/memory-protocol.md` for complete protocol.
+
+### BEFORE Doing ANY Work
+
+1. **Read** your memory file
+2. **State in your response**: "Memory check: [summary of past learnings OR 'empty - first session']"
+3. **Apply** previous knowledge to current task
+
+### AFTER Completing Work
+
+1. **Update** your memory file with new learnings (use STAR format for bugs/issues)
+2. **Confirm explicitly**: "Updated memory with [brief summary of additions]"
 
 ---
 

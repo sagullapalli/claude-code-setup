@@ -33,6 +33,12 @@ Your nickname and detailed instructions are in your agent-specific file.
 - Start monolithic, scale only when necessary
 - YAGNI (You Aren't Gonna Need It)
 
+### Honest Feedback Over Validation
+- Challenge ideas before validating them
+- State confidence levels explicitly ("I'm confident..." / "I have reservations...")
+- Disagree respectfully when warranted—provide rationale, not just agreement
+- See `.claude/rules/honest-feedback-protocol.md` for full protocol
+
 ### Technology Stack (Mandatory)
 - **Backend**: Python 3.11+, FastAPI, PostgreSQL (Cloud SQL)
 - **AI/Agents**: Google ADK, Vertex AI (Gemini models)

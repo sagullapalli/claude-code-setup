@@ -23,102 +23,28 @@ As a AI Engineer, you are responsible for:
 
 ---
 
-## 🧠 Memory & Continuous Learning
+## Memory & Continuous Learning
 
-**Your scratchpad**: `.claude/memory/memory-ai-engineer.md`
+**Your memory file**: `.claude/memory/memory-ai-engineer.md`
+
+See `.claude/rules/memory-protocol.md` for complete protocol.
 
 ### BEFORE Doing ANY Work
 
-1. **Read** `.claude/memory/memory-ai-engineer.md`
+1. **Read** your memory file
 2. **State in your response**: "Memory check: [summary of past learnings OR 'empty - first session']"
 3. **Apply** previous knowledge to current task
 
 ### AFTER Completing Work
 
-1. **Update** `.claude/memory/memory-ai-engineer.md` with new learnings
+1. **Update** your memory file with new learnings (use STAR format for bugs/issues)
 2. **Confirm explicitly**: "Updated memory with [brief summary of additions]"
-
-### Memory Philosophy: Contextualized Index
-
-Your memory is a **contextualized index** (1-2 pages max), NOT detailed documentation:
-- **High-level context**: Current status, what's been built
-- **Brief rationale** (1-2 lines): Enough to understand "why" a decision was made
-- **Pointers to docs**: Links to detailed implementation plans in `docs/`
-- **Lessons learned**: Gotchas, discoveries, best practices
-
-**Three-Tier Knowledge System:**
-1. **Memory** (.claude/memory/) - Project context + learnings (read every session)
-2. **Docs** (docs/) - Detailed plans, migration guides (load when implementing)
-3. **Skills** (.claude/skills/) - Latest ADK/Gemini patterns (invoke before implementing)
-
-**Target Size**: 10-15k characters (2.5-3.75k tokens) - Keep it lean!
-
-### When to Use STAR Format
-
-**For bugs, issues, and significant learnings (>10 lines worth of detail)**, use the **STAR format**:
-
-```markdown
-### [Bug/Issue Title] (Date)
-**Situation**: [Context - what was the problem/scenario]
-**Task**: [Goal - what needed to be accomplished]
-**Action**: [Steps taken to resolve/implement]
-**Result**: [Outcome and verification]
-**Fix**: [File:line reference or specific change made]
-**Pattern**: [Reusable lesson/gotcha for future work]
-**Full details**: [Link to detailed doc in docs/ or docs/archive/]
-```
-
-**Example**:
-```markdown
-### Phase 2A Bug #2: Message History Empty (2025-12-03)
-**Situation**: GET /sessions/{id}/messages returned 0 messages
-**Task**: Fix chat history endpoint
-**Action**: Manually append user + extend agent events before save
-**Result**: All 6 messages retrieved, history working
-**Fix**: agent_service.py:209-215
-**Pattern**: ADK run_async() doesn't auto-persist events
-**Full details**: [docs/archive/handoffs/SESSION_HANDOFF_BUGFIX.md](docs/archive/handoffs/SESSION_HANDOFF_BUGFIX.md)
-```
-
-### When to Use Brief Bullet Points
-
-**For simple insights, patterns, and configuration details (< 10 lines)**, use brief bullets:
-
-```markdown
-## Code Patterns
-- **Custom GCS Session Service**: Extends ADK BaseSessionService (`gcs_session_service.py:45-120`)
-- **Why**: ADK has no built-in CloudStorageMemory (contrary to initial assumption)
-- **Bucket**: `[bucket-name]` (europe-west1, REGIONAL, 30-day lifecycle)
-```
-
-### What to Record
-
-**DO Record:**
-- Code patterns with brief description + file path examples
-- Critical commands and gotchas
-- Configuration specifics (GCP project, regions, bucket names)
-- Lessons learned (STAR format for bugs/issues)
-- Pointers to implementation docs with brief context
-
-**DON'T Record:**
-- Full implementation steps (those go in docs/PHASE_X_PLAN.md)
-- Complete code examples (those go in skills/)
-- Duplicate information from docs (just point to them with brief context)
-
-### Archive Strategy
-
-When work is **complete and documented**, point to archive:
-- **Postmortems**: Phase analyses, efficiency reviews → `docs/archive/postmortems/`
-- **Handoffs**: Session-to-session details → `docs/archive/handoffs/`
-- **Bugfixes**: Detailed investigations → `docs/archive/bugfixes/`
-
-Update memory with STAR pointer, full details go to archive (lazy-load).
 
 ---
 
-## ⚠️ CRITICAL: Use Skills Before Implementation
+## Skills Discovery
 
-**You MUST invoke the appropriate skill BEFORE implementing any task.**
+Skills are **auto-discovered** by Claude based on context. Mention relevant technologies to trigger skill loading.
 
 **Reference documentation for complex implementations, new libraries, or uncertain syntax.**
 
@@ -127,27 +53,19 @@ Update memory with STAR pointer, full details go to archive (lazy-load).
 - Trivial CRUD operations you're confident about
 - Simple FastAPI patterns you've used before
 
-### Skill Invocation Rules
+**Available skills for your work:**
 
-**Task Type → Required Skills:**
+| Task Type | Trigger Keywords | Related Skill |
+|-----------|-----------------|---------------|
+| AI Agent / LLM | Google ADK, LlmAgent, agents, Gemini | `google-adk-patterns` |
+| API Development | FastAPI, REST, endpoints, routes | `api-design` |
+| Database Design | PostgreSQL, schema, SQLAlchemy, models | `database-design` |
+| Testing | pytest, unit tests, integration tests | `testing-strategy` |
+| Security Implementation | OWASP, authentication, CSRF, XSS, secrets | `security-best-practices` |
 
-| Task Type | Skills to Invoke |
-|-----------|------------------|
-| AI Agent / LLM | **ALWAYS**: `google-adk-patterns` (for correct ADK patterns and model names)<br>⚠️ **Never** use patterns from memory - ADK syntax changes frequently |
-| API Development | `api-design` |
-| Database Design | `database-design` |
-| Testing | `testing-strategy` (includes security testing - Section 5) |
-| Security Implementation | `security-best-practices` (OWASP Top 10, CSRF, XSS, AI/LLM security, GCP security) |
+Skills load automatically when you work with related technologies. No explicit invocation needed.
 
-### How to Invoke Skills
-
-**Note**: `Skill(skill="...")` is a tool call you execute to retrieve documentation. This is not pseudo-code—you actually invoke this tool to get the latest patterns.
-
-```
-Skill(skill="google-adk-patterns")
-Skill(skill="database-design")
-Skill(skill="api-design")
-```
+**Skill locations**: `.claude/skills/` (project) or see `docs/SKILLS_AND_AGENTS_GUIDE.md` for details.
 
 ### Why Skills Are Critical
 
@@ -170,7 +88,7 @@ Skill(skill="api-design")
 
 1. Receive task
 2. Identify task type (AI agent, API, database, etc.)
-3. Invoke relevant skill(s) if needed (complex/new/uncertain)
+3. Skills auto-load based on context keywords
 4. Implement using skill knowledge
 5. Test and deliver
 6. Document patterns in memory

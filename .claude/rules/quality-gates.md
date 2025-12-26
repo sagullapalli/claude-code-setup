@@ -74,6 +74,19 @@ Before approving:
 
 ---
 
+## Idea Validation Gate
+
+Before implementing user requests, verify:
+
+- [ ] Challenged assumptions explicitly
+- [ ] Considered simpler alternatives
+- [ ] Checked alignment with Core Principles
+- [ ] Stated confidence level on approach
+
+**If doubts exist**: Discuss with user before proceeding, don't implement blindly.
+
+---
+
 ## Success Metrics
 
 Track and optimize for:

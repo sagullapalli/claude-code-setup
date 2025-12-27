@@ -36,6 +36,14 @@ Last updated: 2025-12-24
 
 ## Architecture Decisions (ADRs)
 
+### ADR-004: Agent Memory Scaling Strategy (2025-12-27) - PROPOSED
+- **Decision**: Phased approach - Context optimization -> pgvector search (100+ docs) -> Graph RAG (only if multi-hop proven)
+- **Rationale**: YAGNI - current scale (78 docs) doesn't justify Graph RAG complexity/cost
+- **Key Choice**: pgvector in Cloud SQL over Vertex AI Vector Search (simpler, cheaper, already in stack)
+- **Trigger for Phase 2**: 100+ docs OR agents frequently miss relevant context
+- **Trigger for Graph RAG**: Multi-hop queries become common requirement
+- **Full details**: [To be documented in docs/adr/004-memory-scaling.md]
+
 ### ADR-001: Dual Streaming Channels (2025-12-27)
 - **Decision**: Separate WebSocket (agent events) from Socket.io (browser frames)
 - **Rationale**: Different traffic patterns - agent is text/low-volume, browser is binary/high-volume. Prevents frame floods blocking agent events.
@@ -63,7 +71,9 @@ Last updated: 2025-12-24
 
 ## Lessons Learned
 
-[No lessons recorded yet - use STAR format for bugs/issues]
+### Graph RAG vs Vector Search Decision (2025-12-27)
+**Pattern**: Graph RAG is for multi-hop reasoning ("find X related to Y that references Z"). Simple vector search handles single-hop retrieval ("find docs relevant to X"). Don't over-engineer - start with vector search, add graph only when multi-hop queries are proven need.
+**Key insight**: pgvector in Cloud SQL is underrated - same DB, no new infra, handles 100k+ vectors easily.
 
 ## Documentation Map
 

@@ -1,0 +1,27 @@
+# GitGuardian Configuration
+# https://docs.gitguardian.com/ggshield-docs/reference/configuration
+
+version: 2
+
+# Secret detection settings
+secret:
+  # Show full secrets in output (useful for debugging, disable in CI)
+  show_secrets: false
+
+  # Paths to ignore
+  ignored_paths:
+    - "**/node_modules/**"
+    - "**/.git/**"
+    - "**/venv/**"
+    - "**/__pycache__/**"
+    - "**/*.min.js"
+    - "**/*.min.css"
+    - "**/dist/**"
+    - "**/build/**"
+    - "**/.claude/logs/**"
+
+  # Specific matches to ignore (add false positives here)
+  ignored_matches: []
+
+  # Detectors to ignore (if needed)
+  # ignored_detectors: []

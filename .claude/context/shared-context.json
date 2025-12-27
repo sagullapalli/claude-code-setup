@@ -1,25 +1,5 @@
 [
   {
-    "id": "873xvz08",
-    "agent": "Code Explorer",
-    "category": "decision",
-    "content": "AGENT-SPECIFIC MEMORY FILES IN `.claude/memory/`\n\nEach agent has a dedicated memory file following the **STAR format** for lessons and structured context:\n\n| Agent File | Nickname | Role |\n|----------...",
-    "timestamp": "2025-12-24T21:06:24.239406",
-    "session_id": "98c752bf-6afd-4159-97ef-45327d207b24",
-    "expires_at": null,
-    "tags": []
-  },
-  {
-    "id": "vcr5h61b",
-    "agent": "Code Explorer",
-    "category": "decision",
-    "content": "AGENT DEFINITIONS IN `.claude/agents/`\n\n8 agent instruction files define roles and responsibilities:\n- `orchestrator.md` - Main coordinator (Ezio)\n- `general-worker.md` - Research and exploration (Scout)\n- `solution-architect.md` - Architecture decisions\n- `ai-eng...",
-    "timestamp": "2025-12-24T21:06:24.239406",
-    "session_id": "98c752bf-6afd-4159-97ef-45327d207b24",
-    "expires_at": null,
-    "tags": []
-  },
-  {
     "id": "1uvb0iuw",
     "agent": "Code Explorer",
     "category": "decision",
@@ -497,6 +477,26 @@
     "timestamp": "2025-12-26T22:14:27.910126",
     "session_id": "8ae9ccc6-13ef-456a-bdcd-7ae731f02d3b",
     "expires_at": "2025-12-27T22:14:27.910126",
+    "tags": []
+  },
+  {
+    "id": "msancoqg",
+    "agent": "QA Tester",
+    "category": "constraint",
+    "content": "**Live log verification**: \n   - 5 new-format entries with `is_mcp` field present\n   - Old entries (18) are historical from before hook deployment\n   - Hook is actively logging in correct format\n\n## T...",
+    "timestamp": "2025-12-26T23:21:04.773358",
+    "session_id": "2d15be8a-7c11-41c3-8eb7-03417a7c011c",
+    "expires_at": "2025-12-27T23:21:04.773358",
+    "tags": []
+  },
+  {
+    "id": "u1i6txig",
+    "agent": "Documentation Guide",
+    "category": "constraint",
+    "content": "## Hook Input Structure for PreToolUse and PostToolUse\n\nBased on the official Claude Code documentation, here's what you need to know:\n\n### Common Fields (Available in ALL Hook Events)\n\nBoth PreToolUs...",
+    "timestamp": "2025-12-27T01:50:07.016965",
+    "session_id": "5828ec8f-6848-4ed4-9133-89975f7c41a1",
+    "expires_at": "2025-12-28T01:50:07.016965",
     "tags": []
   }
 ]

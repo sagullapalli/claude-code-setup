@@ -74,6 +74,77 @@ grep: "pattern" in backend/
 
 ---
 
+## Claude Agent SDK Research (2025-12-27)
+
+### SDK Overview
+- **Package**: `pip install claude-agent-sdk` (Python 3.10+)
+- **Architecture**: SDK manages Claude Code CLI as subprocess, provides async Python APIs
+- **CLI Bundled**: No separate Claude Code installation required
+
+### Two Usage Patterns
+1. **`query()`** - One-shot, stateless for simple tasks
+2. **`ClaudeSDKClient`** - Multi-turn, stateful with context manager
+
+### Key Streaming Capabilities
+- `include_partial_messages=True` enables `StreamEvent` for real-time updates
+- Message types: `AssistantMessage`, `UserMessage`, `SystemMessage`, `ResultMessage`, `StreamEvent`
+- Content blocks: `TextBlock`, `ToolUseBlock`, `ThinkingBlock`, `ToolResultBlock`
+- Pattern: `async for message in query(...)` or `async for msg in client.receive_response()`
+
+### Custom Tools
+- `@tool(name, description, input_schema)` decorator
+- Bundle into MCP server: `create_sdk_mcp_server(name, tools=[...])`
+- Naming: `mcp__<server>__<tool>` in `allowed_tools`
+- Tools must be async and return `{"content": [{"type": "text", "text": "..."}]}`
+
+### Hooks System
+- **PreToolUse**: Validate/block before tool runs
+- **PostToolUse**: Review/log after tool runs
+- **Permission callback**: `can_use_tool` for fine-grained control
+- **HookMatcher**: Match specific tools or `None` for all
+
+### Claude Code CLI Integration
+- SDK wraps CLI as subprocess
+- `.claude/settings.json` configures permissions and hooks
+- `.claude/hooks/` contains Python hook scripts
+- Hook types: `command` (external script) or `prompt` (LLM evaluation)
+- Environment: `$CLAUDE_PROJECT_DIR` available in hooks
+
+### WebSocket Streaming to Frontend
+- See: `.claude/skills/websocket-streaming.md`
+- Pattern: FastAPI WebSocket -> async generator -> React callbacks
+
+---
+
+## Browser Embedding Research (2025-12-27)
+
+### MCP Servers for Browser Control
+- **Chrome DevTools MCP** (Official Google): `npx chrome-devtools-mcp@latest` - 26 tools, uses Puppeteer/CDP
+- **Playwright MCP** (Microsoft): `npx @playwright/mcp@latest` - 40+ tools, uses accessibility tree
+- Both support Claude Code, Cursor, VS Code, Gemini CLI
+
+### Real-Time Browser Streaming Approaches
+| Approach | Latency | Complexity | Best For |
+|----------|---------|------------|----------|
+| CDP Page.startScreencast + Socket.io | Low-Med | Medium | Interactive agent control |
+| noVNC (VNC over WebSocket) | Low | High | Full desktop streaming |
+| Browserless Live URL | Low | Low (managed) | Paid service integration |
+| WebRTC | Very Low | High | Low-latency live streaming |
+
+### Key Architecture Pattern
+Server-side: Puppeteer CDPSession captures frames via `Page.startScreencast`
+Transport: Socket.io or WebSocket streams base64 JPEG/PNG frames
+Client-side: React img element or Canvas updates on each frame
+User input: Client sends click/type events via WebSocket -> Puppeteer executes
+
+### Technical Gotchas
+- CDP screencast uses base64 PNG/JPEG, can be resource-intensive at high FPS
+- Quality/framerate tradeoff: quality:70 + jpeg recommended for low latency
+- Auto-connect feature in Chrome DevTools MCP requires Chrome 144+ and user permission
+- Playwright MCP uses accessibility tree (no screenshots) by default - better for automation, not for live viewing
+
+---
+
 ## Lessons Learned
 
 ### Phase 1: Memory Section Cleanup (2025-12-26)

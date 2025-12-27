@@ -14,31 +14,52 @@ Last updated: 2025-12-24
 **Full protocol**: See CLAUDE.md
 
 ## Project Config
-- **Project**: [Project Name]
-- **GCP Project**: [To be configured]
+- **Project**: The Interface - Web-based IDE wrapping Claude Code CLI
+- **GCP Project**: [To be configured for production]
 - **Region**: europe-west1 (ALWAYS use Europe regions)
-- **Stack**: [To be configured]
+- **Stack**: FastAPI + Claude Agent SDK + React/Vite + Monaco + Puppeteer
 - **Repository**: /home/sunny/projects/interface
 
 ## Current Status
 
-**Phase**: Not started
-- Project setup in progress
-- Awaiting architectural requirements
+**Phase**: Architecture Design (2025-12-27)
+- Architecture validated and approved
+- 5-phase implementation plan defined
+- Awaiting Phase 1 implementation kickoff
+
+**Key Decisions Made**:
+- Claude Agent SDK (`ClaudeSDKClient`) for multi-turn agent
+- Dual streaming: WebSocket (agent) + Socket.io (browser frames)
+- Chrome DevTools MCP for browser control
+- Critic agent as async observer (not blocking)
+- Leverage existing `.claude/hooks/` infrastructure
 
 ## Architecture Decisions (ADRs)
 
-[No decisions recorded yet]
+### ADR-001: Dual Streaming Channels (2025-12-27)
+- **Decision**: Separate WebSocket (agent events) from Socket.io (browser frames)
+- **Rationale**: Different traffic patterns - agent is text/low-volume, browser is binary/high-volume. Prevents frame floods blocking agent events.
+- **Alternatives Rejected**: Single WebSocket for both, SSE for agent
+- **Full details**: [To be documented in docs/adr/001-interface-architecture.md]
 
-**ADR Format**:
-- Decision: [1-line what]
-- Rationale: [1-2 lines why, key trade-off]
-- Alternatives Rejected: [Brief list]
-- **Full details**: [Link to doc]
+### ADR-002: Critic as Observer Pattern (2025-12-27)
+- **Decision**: Critic runs async via event queue, uses lightweight `anthropic` SDK (not Agent SDK)
+- **Rationale**: Agent SDK is overkill for review-only task. Async prevents blocking main agent.
+- **Alternatives Rejected**: Critic as full Agent SDK instance, synchronous inline critique
+- **Full details**: [To be documented in docs/adr/001-interface-architecture.md]
+
+### ADR-003: Hook Integration Strategy (2025-12-27)
+- **Decision**: Backend reads existing hook outputs (`.claude/logs/`), doesn't duplicate hooks
+- **Rationale**: Existing hooks are sophisticated. Web UI should extend, not replace.
+- **Alternatives Rejected**: Separate hook infrastructure for web UI
+- **Full details**: See existing hooks in `.claude/hooks/`
 
 ## Key Patterns
 
-[No patterns established yet]
+- **WebSocket Streaming**: Use `websocket-streaming.md` patterns (already verified working)
+- **Agent SDK**: Use `ClaudeSDKClient` with context manager, always set `max_turns` and `max_budget_usd`
+- **MCP Tool Naming**: `mcp__<server>__<tool>` format for `allowed_tools`
+- **State Updates**: React `prev =>` pattern for functional updates during streaming
 
 ## Lessons Learned
 
@@ -48,7 +69,20 @@ Last updated: 2025-12-24
 
 | Topic | Document | What It Contains |
 |-------|----------|------------------|
-| [Topic] | [doc-path] | [Description] |
+| Architecture | docs/adr/001-interface-architecture.md | Full architecture ADR (to be created) |
+| WebSocket | .claude/skills/websocket-streaming.md | Streaming patterns |
+| Agent SDK | .claude/skills/claude-agent-sdk-patterns/ | SDK usage patterns |
+| Existing Hooks | .claude/hooks/ | Tool tracing, session analytics |
+
+## Implementation Phases
+
+| Phase | Priority | Goal | Dependencies |
+|-------|----------|------|--------------|
+| 1 | P1 | Agent streaming + markdown rendering | None |
+| 2 | P2 | Monaco editor + file operations | Phase 1 |
+| 3 | P3 | Browser preview + agent control | Phase 1 |
+| 4 | P4 | Critic agent sidebar | Phase 1 |
+| 5 | - | OAuth + Cloud deployment | All |
 
 ---
 

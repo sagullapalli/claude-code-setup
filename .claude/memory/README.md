@@ -4,7 +4,7 @@ Simple scratchpads where agents record implementation details, learnings, and pr
 
 ## Files
 
-- `memory-orchestrator.md` - Arc
+- `memory-orchestrator.md` - Ezio
 - `memory-solution-architect.md` - Sage
 - `memory-ai-engineer.md` - Kai
 - `memory-frontend-engineer.md` - Iris

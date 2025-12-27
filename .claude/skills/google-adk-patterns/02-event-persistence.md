@@ -2,6 +2,11 @@
 
 **CRITICAL MODULE**: Contains the most common gotchas in Google ADK. Read this carefully!
 
+> **For current event API, use Context7:**
+> ```
+> get-library-docs: /google/adk-docs (topic: "events session persistence")
+> ```
+
 ---
 
 ## Understanding ADK Events

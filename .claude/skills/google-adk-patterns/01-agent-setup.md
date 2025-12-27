@@ -2,6 +2,11 @@
 
 Complete guide to installing, authenticating, and creating Google ADK agents.
 
+> **For current API syntax, use Context7:**
+> ```
+> get-library-docs: /google/adk-docs (topic: "LlmAgent installation")
+> ```
+
 ---
 
 ## Installation & Requirements
@@ -252,10 +257,17 @@ agent = LlmAgent(
 
 ### Model Selection Guide
 
-- **gemini-2.0-flash**: Fastest, best for most use cases (RECOMMENDED)
-- **gemini-2.5-flash**: Experimental, newer version
-- **gemini-pro**: More capable, higher cost
-- **gemini-3-pro-preview**: Latest preview model
+> **For latest model names, use Context7:**
+> ```
+> get-library-docs: /google/adk-docs (topic: "gemini model names")
+> ```
+
+**Current Models (verified Dec 2025):**
+- **gemini-2.0-flash**: Fast, reliable, good for most agent use cases
+- **gemini-3-flash-preview**: Pro-level intelligence at Flash speed/pricing (RECOMMENDED for new projects)
+- **gemini-3-pro-preview**: Most capable model, best for complex reasoning
+
+**Note**: Model names change frequently. Gemini 3 models are in preview. Always verify with Context7 or official docs.
 
 ---
 

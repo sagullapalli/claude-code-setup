@@ -2,6 +2,11 @@
 
 Production-ready patterns for integrating Google ADK agents with FastAPI.
 
+> **For current runner API, use Context7:**
+> ```
+> get-library-docs: /google/adk-docs (topic: "runner InMemoryRunner")
+> ```
+
 ---
 
 ## Basic FastAPI Integration

@@ -1,3 +1,8 @@
+---
+name: security-best-practices
+description: Comprehensive security patterns including OWASP Top 10, GCP security, AI/LLM security. Use when implementing auth, access control, or security reviews.
+---
+
 # Security Best Practices Skill
 
 This skill provides comprehensive security best practices for building secure applications.

@@ -1,62 +1,130 @@
-# Arc - Main Orchestrator
+# Ezio - Main Orchestrator
 
-Last updated: 2025-12-24
+Last updated: 2025-12-25
 
-## Active Protocols (Read Every Session)
+## Active Protocols
 
 ### Skills-First Protocol
-**MANDATORY**: Before ANY technical investigation, debugging, or implementation:
-1. Identify technology/domain relevant to the task
-2. Check `.claude/skills/[technology]-patterns.md`
-3. Search for relevant pattern (2 minutes)
-4. Use documented pattern if found, OR investigate + document after verification
-
-**Full protocol**: See CLAUDE.md
+**MANDATORY**: Before ANY technical work, check `.claude/skills/` first.
+**Full protocol**: `.claude/rules/pre-work-protocol.md`
 
 ### Agent Delegation Protocol
-When delegating to team agents (Sage, Kai, Vera, Iris, Devo, Luna):
-1. Use correct subagent_type (exact capitalization)
-2. Provide COMPLETE context in delegation prompt (agents start with clean slate)
+**Full protocol**: `.claude/rules/agent-delegation.md`
+**Templates**: `.claude/skills/delegation-templates/SKILL.md`
 
 **Quick Reference**:
-- Sage: `subagent_type="Solution Architect"`
-- Kai: `subagent_type="AI Engineer"`
-- Iris: `subagent_type="Frontend Engineer"`
-- Devo: `subagent_type="DevOps Engineer"`
-- Vera: `subagent_type="QA Tester"`
-- Luna: `subagent_type="Frontend QA Specialist"`
+| Nickname | subagent_type |
+|----------|---------------|
+| Scout | `General Worker` |
+| Sage | `Solution Architect` |
+| Kai | `AI Engineer` |
+| Iris | `Frontend Engineer` |
+| Devo | `DevOps Engineer` |
+| Vera | `QA Tester` |
+| Luna | `Frontend QA Specialist` |
+
+---
 
 ## Project Config
-- **Project**: [Project Name]
+- **Project**: Interface
 - **GCP Project**: [To be configured]
 - **Region**: europe-west1 (ALWAYS use Europe regions)
-- **Stack**: [To be configured]
+- **Stack**: Python/FastAPI/Google ADK (backend), React/TypeScript (frontend)
 - **Repository**: /home/sunny/projects/interface
 
 ## Current Status
 
-**Phase**: Not started
-- Project setup in progress
-- Claude configuration copied from previous project
+**Phase**: Setup/Organization
+- Claude configuration in progress
+- Skills and agents framework restructured (2025-12-25)
 - Memory files reset for fresh start
+
+---
 
 ## Key Decisions
 
-[No decisions recorded yet]
+| Decision | Rationale | Details |
+|----------|-----------|---------|
+| Split agent-delegation into rule + skill | Rules enforce standards, skills provide templates | This session |
+| Split memory-workflow into rule + skill | Rules enforce standards, skills provide templates | This session |
+| Move Documentation Map to memory | Project-specific context, not reusable across projects | This session |
+
+---
 
 ## Critical Files & Commands
 
 [To be documented as project develops]
 
+---
+
 ## Lessons Learned
 
-[No lessons recorded yet - use STAR format for bugs/issues]
+### Task Triage Reinforcement (2025-12-25)
+**Situation**: User noticed Ezio sometimes executing tasks directly instead of delegating
+**Task**: Strengthen delegation enforcement in instructions
+**Action**: Added "⚠️ STOP: Task Triage" section at top of orchestrator.md with explicit checklist
+**Result**: Clear 4-step checkpoint before any action: task type → context needed → who executes → confirm delegation
+**Pattern**: Need prominent "STOP" trigger at point of task receipt, not just rules in separate files
+
+### Reorganization: CLAUDE.md & orchestrator.md (2025-12-25)
+**Situation**: CLAUDE.md (209 lines) and orchestrator.md (850 lines) were too large with mixed concerns
+**Task**: Reorganize per Three-Tier Knowledge System
+**Action**: Split into rules (mandates) + skills (procedures) + memory (project context)
+**Result**: CLAUDE.md → 97 lines, orchestrator.md → 180 lines
+**Pattern**: Rules = "You MUST", Skills = "Here's HOW", Memory = project-specific indexes
+
+---
 
 ## Documentation Map
 
-| Topic | Document | What It Contains |
-|-------|----------|------------------|
-| [Topic] | [doc-path] | [Description] |
+### Current Project Docs
+| Document | Use When | Key Contents |
+|----------|----------|--------------|
+| [README.md](README.md) | Project overview | Project description |
+| [docs/SKILLS_AND_AGENTS_GUIDE.md](docs/SKILLS_AND_AGENTS_GUIDE.md) | Understanding skills/memory | Three-tier knowledge system |
+| [docs/claude-code-best-setup.md](docs/claude-code-best-setup.md) | Claude Code setup | Best practices for Claude configuration |
+| [docs/rules-reference.md](docs/rules-reference.md) | Rules reference | How rules work |
+| [docs/skill-complexity-levels.md](docs/skill-complexity-levels.md) | Skill design | Skill complexity levels |
+
+### Rules (Auto-loaded)
+| Rule | Purpose |
+|------|---------|
+| `.claude/rules/pre-work-protocol.md` | Skills-first checklist before any work |
+| `.claude/rules/memory-protocol.md` | Memory read/update requirements |
+| `.claude/rules/agent-delegation.md` | Delegation standards for Ezio |
+| `.claude/rules/quality-gates.md` | Code quality standards |
+
+### Skills (Auto-discovered)
+| Skill | Purpose |
+|-------|---------|
+| `memory-workflow/` | STAR format templates, memory examples |
+| `delegation-templates/` | Delegation context templates, examples |
+| `orchestrator-workflows/` | Phase workflows, TDD coordination |
+
+---
+
+## Common Delegation Scenarios
+
+**Note**: Update these as project develops with specific doc references.
+
+### Building a New Feature
+```
+1. Delegate to Sage for architecture
+2. Delegate to Kai for backend implementation
+3. Delegate to Iris for frontend (if needed)
+4. Delegate to Vera for testing
+Skills: Depends on feature domain
+```
+
+### Testing Implementation
+```
+Skills: testing-strategy, tdd-workflow
+```
+
+### Infrastructure Setup
+```
+Skills: gcp-deployment (when created)
+```
 
 ---
 

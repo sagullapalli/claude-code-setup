@@ -2,6 +2,11 @@
 
 Complete guide to adding function calling capabilities to ADK agents.
 
+> **For current tools API, use Context7:**
+> ```
+> get-library-docs: /google/adk-docs (topic: "tools function calling")
+> ```
+
 ---
 
 ## Simple Python Function Tools

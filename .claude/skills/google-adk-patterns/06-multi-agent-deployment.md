@@ -2,6 +2,11 @@
 
 Advanced patterns for hierarchical agents, workflows, and production deployment.
 
+> **For current multi-agent API, use Context7:**
+> ```
+> get-library-docs: /google/adk-docs (topic: "multi-agent sub_agents hierarchical")
+> ```
+
 ---
 
 ## Hierarchical Agent Pattern (LLM-Driven Delegation)

@@ -1,3 +1,8 @@
+---
+name: websocket-streaming
+description: WebSocket and SSE patterns for real-time communication. Use when implementing streaming, real-time features, or bidirectional communication.
+---
+
 # WebSocket Streaming Patterns
 
 > **Purpose**: Patterns for implementing real-time WebSocket streaming with FastAPI backend and React frontend.

@@ -1,0 +1,35 @@
+# GitGuardian Security Scanning
+# Scans for secrets on push and pull requests
+#
+# Setup:
+# 1. Go to GitGuardian dashboard > API > Personal Access Tokens
+# 2. Create a token with "scan" scope
+# 3. Add GITGUARDIAN_API_KEY as a repository secret in GitHub
+
+name: Security Scan
+
+on:
+  push:
+    branches: [main, master, develop]
+  pull_request:
+    branches: [main, master, develop]
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  gitguardian:
+    name: GitGuardian Secret Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch full history for scanning
+
+      - name: GitGuardian Scan
+        uses: GitGuardian/ggshield-action@v1
+        env:
+          GITHUB_PUSH_BEFORE_SHA: ${{ github.event.before }}
+          GITHUB_PUSH_BASE_SHA: ${{ github.event.base_ref }}
+          GITHUB_PULL_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          GITHUB_DEFAULT_BRANCH: ${{ github.event.repository.default_branch }}
+          GITGUARDIAN_API_KEY: ${{ secrets.GITGUARDIAN_API_KEY }}

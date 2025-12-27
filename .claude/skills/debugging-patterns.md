@@ -1,3 +1,8 @@
+---
+name: debugging-patterns
+description: Debugging strategies for backend, frontend, and infrastructure issues. Use when troubleshooting errors, performance issues, or unexpected behavior.
+---
+
 # Debugging Patterns & Anti-Patterns
 
 **Last updated**: 2025-12-02

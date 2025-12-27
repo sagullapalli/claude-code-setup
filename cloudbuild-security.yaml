@@ -1,0 +1,49 @@
+# Cloud Build - Security Scanning Pipeline
+# This pipeline runs GitGuardian secret scanning on PRs and pushes
+#
+# Setup:
+# 1. Create secret in Secret Manager: GITGUARDIAN_API_KEY
+# 2. Grant Cloud Build service account access to the secret
+# 3. Create a trigger in Cloud Build pointing to this file
+
+steps:
+  # Step 1: GitGuardian Secret Scanning
+  - name: 'python:3.11-slim'
+    id: 'gitguardian-scan'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        pip install ggshield --quiet
+        echo "Running GitGuardian secret scan..."
+        ggshield secret scan ci
+    secretEnv: ['GITGUARDIAN_API_KEY']
+
+  # Step 2: Scan for secrets in commit range (for PRs)
+  - name: 'python:3.11-slim'
+    id: 'gitguardian-commit-range'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        if [ -n "$_PR_NUMBER" ]; then
+          pip install ggshield --quiet
+          echo "Scanning commit range for PR #$_PR_NUMBER..."
+          ggshield secret scan commit-range HEAD~10..HEAD || true
+        else
+          echo "Not a PR build, skipping commit range scan"
+        fi
+    secretEnv: ['GITGUARDIAN_API_KEY']
+
+# Available secrets from Secret Manager
+availableSecrets:
+  secretManager:
+    - versionName: projects/$PROJECT_ID/secrets/GITGUARDIAN_API_KEY/versions/latest
+      env: 'GITGUARDIAN_API_KEY'
+
+# Substitutions (can be overridden in triggers)
+substitutions:
+  _PR_NUMBER: ''
+
+options:
+  logging: CLOUD_LOGGING_ONLY

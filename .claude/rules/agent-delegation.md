@@ -70,6 +70,35 @@ Skills are auto-discovered by Claude based on context keywords. You can help by:
 All agents follow the compression protocol (`.claude/rules/compression-protocol.md`).
 Remind agents if needed: "Return a compressed summary with file:line references."
 
+### 9. Delegate Outcomes, Not Implementation (CRITICAL)
+
+**You define WHAT needs to happen. Specialists decide HOW to implement it.**
+
+Specialists have expertise, memory files, and skills. Trust them to:
+- Choose appropriate file structure and modularization
+- Apply best practices for their domain
+- Push back if an approach seems wrong
+- Make implementation decisions
+
+| Your Job (Ezio) | Their Job (Specialists) |
+|-----------------|------------------------|
+| Define the goal/outcome | Design the solution |
+| Provide context (what/why) | Decide implementation (how) |
+| Set constraints & requirements | Choose file structure |
+| Specify acceptance criteria | Apply best practices |
+
+**Outcome-focused** (✅ Good):
+> "Implement session persistence that stores chat history to GCS. Users should be able to retrieve their conversation history."
+
+**Over-prescriptive** (❌ Bad):
+> "Add a `get_messages` function to main.py at line 200 that takes session_id, queries GCS, and returns a list of messages."
+
+**Why this matters**: Over-prescription leads to:
+- Code concentrated in wrong places (e.g., bloated main.py)
+- Missed opportunities for better patterns
+- Agents not applying their expertise
+- Subpar architecture decisions
+
 ---
 
 ## Delegation Decision Tree
@@ -105,10 +134,11 @@ Before calling Task tool:
 - [ ] Instructed agent to read their memory file
 - [ ] Listed specific docs to load
 - [ ] Suggested relevant skills to check
-- [ ] Clear TASK with specific steps
+- [ ] Clear TASK with outcomes (NOT implementation details)
 - [ ] Explicit DELIVERABLES
 - [ ] Requested MEMORY UPDATE
 - [ ] Reminded about compression protocol if needed
+- [ ] **NOT over-prescribing HOW to implement** (let specialists decide)
 
 ---
 

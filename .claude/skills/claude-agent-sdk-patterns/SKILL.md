@@ -51,6 +51,13 @@ The **Claude Agent SDK** (`claude-agent-sdk`) enables building AI agents with Cl
    - Permission callbacks (can_use_tool)
    - Stop/interrupt patterns
 
+4. **[04-streaming-behavior.md](04-streaming-behavior.md)** - Streaming Details (validated 2026-01-01)
+   - StreamEvent vs AssistantMessage timing
+   - Real-time text delta streaming
+   - Tool use/result message sequence
+   - Interrupt behavior and client reuse
+   - Session persistence and resume
+
 ---
 
 ## When to Use Claude Agent SDK
@@ -188,4 +195,4 @@ allowed_tools=["mcp__server_name__tool_name"]
 
 ---
 
-**Last Updated**: 2025-12-26
+**Last Updated**: 2026-01-01

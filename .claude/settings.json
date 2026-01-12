@@ -54,17 +54,6 @@
                 ]
             }
         ],
-        "Stop": [
-            {
-                "hooks": [
-                    {
-                        "type": "prompt",
-                        "prompt": "You are a QA reviewer. Analyze the conversation and determine if Claude should stop or continue.\n\nCheck:\n1. Were all requested tasks completed?\n2. Any unresolved errors or test failures?\n3. Did the last action succeed?\n4. Any obvious incomplete work (TODO, stubs, partial implementations)?\n\nRESPOND WITH ONLY valid JSON, no other text:\n\nTo ALLOW stopping (work is complete):\n{\"ok\": true, \"reason\": \"your reason here\"}\n\nTo BLOCK stopping and FORCE continuation (work is incomplete):\n{\"ok\": false, \"reason\": \"what needs to be done\"}",
-                        "timeout": 30
-                    }
-                ]
-            }
-        ],
         "SessionEnd": [
             {
                 "hooks": [

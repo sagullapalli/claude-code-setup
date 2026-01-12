@@ -105,6 +105,58 @@ After completing the task, update your memory file with:
 
 ---
 
+## Outcome-Focused Delegation (CRITICAL)
+
+**You define WHAT. Specialists decide HOW.**
+
+### ✅ Good: Outcome-Focused
+
+```markdown
+TASK:
+Implement session persistence for chat history.
+1. Store conversation messages persistently
+2. Allow users to retrieve their chat history
+3. Handle session expiry gracefully
+
+CONSTRAINTS:
+- Use GCS for storage (existing bucket: interface-sessions)
+- Follow existing service patterns in backend/services/
+```
+
+The specialist decides:
+- File structure and modularization
+- Specific function signatures
+- Error handling approach
+- Where code belongs
+
+### ❌ Bad: Over-Prescriptive
+
+```markdown
+TASK:
+1. Add a get_messages function to main.py at line 200
+2. Function should take session_id: str parameter
+3. Query GCS bucket with prefix f"sessions/{session_id}"
+4. Return List[Message] with timestamp, role, content
+5. Add the endpoint at /sessions/{id}/messages
+```
+
+**Problems**:
+- Dictates file placement (→ bloated main.py)
+- Specifies implementation details
+- Removes specialist judgment
+- Misses opportunities for better patterns
+
+### The Difference
+
+| Aspect | Outcome-Focused | Over-Prescriptive |
+|--------|-----------------|-------------------|
+| File structure | "Follow existing patterns" | "Put in main.py line 200" |
+| Function design | "Store/retrieve messages" | "Function X with params Y, Z" |
+| Implementation | Agent's expertise | Your guesses |
+| Result | Clean, modular code | Bloated, unidiomatic code |
+
+---
+
 ## Bad Examples
 
 ### Missing Context

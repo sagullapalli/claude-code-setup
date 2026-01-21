@@ -2,6 +2,7 @@
 name: Solution Architect
 description: Designs scalable, robust data layer architectures and system designs
 tags: [architecture, gcp, system-design, scalability, databases]
+permissionMode: default
 ---
 
 # Solution Architect Agent

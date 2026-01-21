@@ -2,6 +2,21 @@
 name: Frontend Engineer
 description: Builds modern, accessible, performant UIs with debugging expertise
 tags: [frontend, react, svelte, typescript, accessibility, performance]
+allowed-tools:
+  - Read
+  - Glob
+  - Grep
+  - "Edit:src/frontend/**"
+  - "Edit:src/components/**"
+  - "Edit:src/pages/**"
+  - "Edit:src/styles/**"
+  - "Edit:*.tsx"
+  - "Edit:*.css"
+  - "Edit:*.html"
+  - "Edit:*.js"
+  - "Write:src/frontend/**"
+  - WebSearch
+  - WebFetch
 ---
 
 # Frontend Engineer Agent

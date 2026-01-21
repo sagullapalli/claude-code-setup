@@ -97,5 +97,7 @@ if [ -d "$CLAUDE_PROJECT_DIR/.git" ]; then
 fi
 
 echo "===================================="
+echo ""
+echo "MANDATORY: Read and apply your agent instructions from .claude/agents/orchestrator.md"
 
 exit 0

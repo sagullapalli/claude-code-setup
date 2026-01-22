@@ -1,0 +1,5 @@
+
+# Project-specific runtime data (should not be in template)
+.claude/logs/
+.claude/context/shared-context.json
+.claude/settings.local.json

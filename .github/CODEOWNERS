@@ -1,0 +1,5 @@
+# Code Owners for claude-code-setup
+# These users must approve PRs that modify matching paths
+
+# Default: repo owner must approve all changes
+* @sagullapalli

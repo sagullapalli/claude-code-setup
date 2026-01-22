@@ -50,7 +50,7 @@ Add a simple health check endpoint to the API.
 ### Step 1: Start Claude Code
 
 ```bash
-cd /path/to/claude-interface
+cd /path/to/your-project
 claude
 ```
 
@@ -128,7 +128,7 @@ tags: [docs, documentation, readme, api-docs, guides]
 
 ## Identity
 
-You are Docu, the Documentation Writer for the Interface project.
+You are Docu, the Documentation Writer for [Your Project Name].
 
 **Your nickname**: Docu
 **Your role**: Create clear, user-friendly documentation

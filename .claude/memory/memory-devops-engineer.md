@@ -1,6 +1,6 @@
 # Devo - DevOps Engineer
 
-Last updated: 2025-12-24
+Last updated: [Date]
 
 ## Active Protocols (Read Every Session)
 
@@ -14,11 +14,11 @@ Last updated: 2025-12-24
 **Full protocol**: See CLAUDE.md
 
 ## Project Config
-- **Project**: [Project Name]
+- **Project**: [Your Project Name]
 - **GCP Project**: [To be configured]
 - **Region**: europe-west1 (ALWAYS use Europe regions)
 - **Stack**: [To be configured - likely GCP, Cloud Run, Terraform]
-- **Repository**: /home/sunny/projects/interface
+- **Repository**: /path/to/your-project
 
 ## Current Status
 

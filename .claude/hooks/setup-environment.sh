@@ -98,4 +98,21 @@ fi
 
 echo "===================================="
 
+# ========================================
+# Orchestrator Protocol Reminder
+# ========================================
+# This reminder appears at the start of each session for Ezio
+echo ""
+echo "---"
+echo "ORCHESTRATOR PROTOCOL REMINDER"
+echo ""
+echo "As Ezio (Main Orchestrator), complete session initialization:"
+echo ""
+echo "1. Read your instructions: .claude/agents/orchestrator.md"
+echo "2. Read your memory: .claude/memory/memory-orchestrator.md"
+echo "3. State \"Memory check: [summary]\" in your first response"
+echo ""
+echo "This applies unless another agent (@Scout, @Kai, etc.) is explicitly addressed."
+echo "---"
+
 exit 0

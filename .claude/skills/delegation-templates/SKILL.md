@@ -119,7 +119,7 @@ Implement session persistence for chat history.
 3. Handle session expiry gracefully
 
 CONSTRAINTS:
-- Use GCS for storage (existing bucket: interface-sessions)
+- Use GCS for storage (existing bucket: your-project-sessions)
 - Follow existing service patterns in backend/services/
 ```
 

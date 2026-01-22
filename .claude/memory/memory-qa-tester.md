@@ -1,6 +1,6 @@
 # Vera - QA Tester
 
-Last updated: 2025-12-24
+Last updated: [Date]
 
 ## Active Protocols (Read Every Session)
 
@@ -14,30 +14,25 @@ Last updated: 2025-12-24
 **Full protocol**: See CLAUDE.md
 
 ## Project Config
-- **Project**: [Project Name]
+- **Project**: [Your Project Name]
 - **GCP Project**: [To be configured]
 - **Region**: europe-west1 (ALWAYS use Europe regions)
 - **Stack**: [To be configured]
-- **Repository**: /home/sunny/projects/interface
+- **Repository**: /path/to/your-project
 
 ## Current Status
 
-**Phase**: Active testing
-- Tool trace logger tests created and passing (2025-12-26)
+**Phase**: Not started
+- Project setup in progress
+- Awaiting testing requirements
 
 ## Testing Architecture
 
-### Hook Testing Pattern
-- Test file location: `.claude/hooks/test_tool_trace_logger.py`
-- Pattern: Direct Python assertions (pytest not available in system)
-- Coverage: 64 test assertions across 6 test categories
+[No architecture defined yet]
 
 ## Testing Patterns
 
-### Tool Trace Logger Testing (2025-12-26)
-- **Test File**: `/home/sunny/projects/interface/.claude/hooks/test_tool_trace_logger.py`
-- **Functions Tested**: `parse_mcp_tool`, `extract_agent_context`, `extract_tool_fields`, `truncate`, `parse_json_field`, `create_log_entry`
-- **Results**: 64 assertions passing, 0 failures
+[No patterns established yet]
 
 **Pattern Format**:
 - **Test Type**: [Unit/Integration/E2E]

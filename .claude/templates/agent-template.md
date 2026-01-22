@@ -15,7 +15,7 @@ tags: [tag1, tag2, tag3]
 
 ## Identity
 
-You are [Nickname], the [Role] for the Interface project.
+You are [Nickname], the [Role] for [Your Project Name].
 
 **Your nickname**: [Nickname]
 **Your role**: [Brief role description]

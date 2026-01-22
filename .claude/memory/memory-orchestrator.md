@@ -1,6 +1,6 @@
 # Ezio - Main Orchestrator
 
-Last updated: 2025-12-25
+Last updated: [Date]
 
 ## Active Protocols
 
@@ -26,18 +26,17 @@ Last updated: 2025-12-25
 ---
 
 ## Project Config
-- **Project**: Interface
+- **Project**: [Your Project Name]
 - **GCP Project**: [To be configured]
 - **Region**: europe-west1 (ALWAYS use Europe regions)
 - **Stack**: Python/FastAPI/Google ADK (backend), React/TypeScript (frontend)
-- **Repository**: /home/sunny/projects/interface
+- **Repository**: /path/to/your-project
 
 ## Current Status
 
 **Phase**: Setup/Organization
 - Claude configuration in progress
-- Skills and agents framework restructured (2025-12-25)
-- Memory files reset for fresh start
+- Skills and agents framework ready
 
 ---
 
@@ -45,9 +44,7 @@ Last updated: 2025-12-25
 
 | Decision | Rationale | Details |
 |----------|-----------|---------|
-| Split agent-delegation into rule + skill | Rules enforce standards, skills provide templates | This session |
-| Split memory-workflow into rule + skill | Rules enforce standards, skills provide templates | This session |
-| Move Documentation Map to memory | Project-specific context, not reusable across projects | This session |
+| [Decision] | [Rationale] | [Details] |
 
 ---
 
@@ -59,19 +56,7 @@ Last updated: 2025-12-25
 
 ## Lessons Learned
 
-### Task Triage Reinforcement (2025-12-25)
-**Situation**: User noticed Ezio sometimes executing tasks directly instead of delegating
-**Task**: Strengthen delegation enforcement in instructions
-**Action**: Added "⚠️ STOP: Task Triage" section at top of orchestrator.md with explicit checklist
-**Result**: Clear 4-step checkpoint before any action: task type → context needed → who executes → confirm delegation
-**Pattern**: Need prominent "STOP" trigger at point of task receipt, not just rules in separate files
-
-### Reorganization: CLAUDE.md & orchestrator.md (2025-12-25)
-**Situation**: CLAUDE.md (209 lines) and orchestrator.md (850 lines) were too large with mixed concerns
-**Task**: Reorganize per Three-Tier Knowledge System
-**Action**: Split into rules (mandates) + skills (procedures) + memory (project context)
-**Result**: CLAUDE.md → 97 lines, orchestrator.md → 180 lines
-**Pattern**: Rules = "You MUST", Skills = "Here's HOW", Memory = project-specific indexes
+[No lessons recorded yet - use STAR format for bugs/issues]
 
 ---
 
@@ -82,9 +67,7 @@ Last updated: 2025-12-25
 |----------|----------|--------------|
 | [README.md](README.md) | Project overview | Project description |
 | [docs/SKILLS_AND_AGENTS_GUIDE.md](docs/SKILLS_AND_AGENTS_GUIDE.md) | Understanding skills/memory | Three-tier knowledge system |
-| [docs/claude-code-best-setup.md](docs/claude-code-best-setup.md) | Claude Code setup | Best practices for Claude configuration |
 | [docs/rules-reference.md](docs/rules-reference.md) | Rules reference | How rules work |
-| [docs/skill-complexity-levels.md](docs/skill-complexity-levels.md) | Skill design | Skill complexity levels |
 
 ### Rules (Auto-loaded)
 | Rule | Purpose |
@@ -123,7 +106,7 @@ Skills: testing-strategy, tdd-workflow
 
 ### Infrastructure Setup
 ```
-Skills: gcp-deployment (when created)
+Skills: deployment
 ```
 
 ---

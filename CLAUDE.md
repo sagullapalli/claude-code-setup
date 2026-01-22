@@ -1,4 +1,4 @@
-# Interface - Universal Project Context
+# Universal Project Context
 
 ## How Instruction Files Work
 

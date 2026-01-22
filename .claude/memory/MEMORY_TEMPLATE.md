@@ -2,7 +2,7 @@
 
 Last updated: YYYY-MM-DD
 
-## 🚨 Active Protocols (Read Every Session)
+## Active Protocols (Read Every Session)
 
 ### Skills-First Protocol
 **MANDATORY**: Before ANY technical work (investigation, debugging, implementation, design):
@@ -11,14 +11,14 @@ Last updated: YYYY-MM-DD
 3. Search for relevant pattern (2 minutes)
 4. Use documented pattern if found, OR proceed + document after verification
 
-**Full protocol**: See CLAUDE.md § "Mandatory Pre-Work Protocol"
+**Full protocol**: See CLAUDE.md
 
 ## Project Config
-- **Project**: [Project Name]
+- **Project**: [Your Project Name]
 - **GCP Project**: [To be configured]
 - **Region**: europe-west1 (ALWAYS use Europe regions - CRITICAL)
 - **Stack**: [Relevant stack components for this agent]
-- **Repository**: /home/sunny/projects/interface
+- **Repository**: /path/to/your-project
 
 ## Current Status
 

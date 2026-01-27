@@ -99,20 +99,25 @@ fi
 echo "===================================="
 
 # ========================================
-# Orchestrator Protocol Reminder
+# Orchestrator Protocol Reminder (MANDATORY)
 # ========================================
-# This reminder appears at the start of each session for Ezio
-echo ""
-echo "---"
-echo "ORCHESTRATOR PROTOCOL REMINDER"
-echo ""
-echo "As Ezio (Main Orchestrator), complete session initialization:"
-echo ""
-echo "1. Read your instructions: .claude/agents/orchestrator.md"
-echo "2. Read your memory: .claude/memory/memory-orchestrator.md"
-echo "3. State \"Memory check: [summary]\" in your first response"
-echo ""
-echo "This applies unless another agent (@Scout, @Kai, etc.) is explicitly addressed."
-echo "---"
+# This reminder ensures Ezio follows session start protocol
+
+cat << 'ORCHESTRATOR_REMINDER'
+
+⚠️ ORCHESTRATOR SESSION START PROTOCOL (MANDATORY)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+If you are Ezio (Main Orchestrator), BEFORE any work:
+
+1. ✅ Read instructions: .claude/agents/orchestrator.md
+2. 📖 Read memory: .claude/memory/memory-orchestrator.md
+3. 💬 State: "Memory loaded: [brief summary of current status]"
+
+THEN proceed with task handling using orchestrator protocol.
+
+Reference: .claude/rules/orchestrator-protocol.md
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ORCHESTRATOR_REMINDER
 
 exit 0

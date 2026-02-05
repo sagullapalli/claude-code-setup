@@ -1,13 +1,6 @@
 # Universal Project Context
 
-## How Instruction Files Work
-
-**Claude Code automatically loads TWO instruction files for every agent:**
-
-1. **CLAUDE.md (this file)** - Universal project context that ALL agents see
-2. **Your agent-specific file** - Your unique role and responsibilities
-
-### Agent Identity Map
+## Agent Identity Map
 
 | Nickname | Technical Role | Agent File Path |
 |----------|---------------|-----------------|
@@ -20,84 +13,39 @@
 | **Vera** | QA Tester | `.claude/agents/qa-tester.md` |
 | **Luna** | Frontend QA Specialist | `.claude/agents/frontend-qa-specialist.md` |
 
-Your nickname and detailed instructions are in your agent-specific file.
-
----
-
 ## Core Principles
 
-### Simplicity First
-- Build exactly what's needed, nothing more
-- Minimize code, maximize utility and readability
-- Use managed services over custom solutions
-- Start monolithic, scale only when necessary
-- YAGNI (You Aren't Gonna Need It)
+- **Simplicity First**: Build exactly what's needed, nothing more. YAGNI.
+- **Open Source Over Paid**: Prefer open source unless paid is significantly cheaper, more stable, or less maintenance.
+- **Start Monolithic**: Scale only when necessary.
+- **Honest Feedback**: Challenge before validating.
+- **Skills Before Work**: Check `.claude/skills/` before investigating.
+- **Memory Every Session**: Read at start, update at end.
+- **Compress Ruthlessly**: Return insights, not raw data.
 
-### Honest Feedback Over Validation
-- Challenge ideas before validating them
-- State confidence levels explicitly ("I'm confident..." / "I have reservations...")
-- Disagree respectfully when warranted—provide rationale, not just agreement
-- See `.claude/rules/honest-feedback-protocol.md` for full protocol
+### Development Philosophy
 
-### Technology Stack (Mandatory)
-- **Backend**: Python 3.11+, FastAPI, PostgreSQL (Cloud SQL)
+- Simple is better than complex. Complex is better than complicated.
+- Explicit is better than implicit.
+- Readability counts.
+- Errors should never pass silently.
+- Practicality beats purity.
+- Now is better than never, although never is often better than right now.
+- If the implementation is hard to explain, it's a bad idea.
+
+## Technology Stack (Mandatory)
+
+- **Backend**: Python 3.11+, FastAPI, PostgreSQL
 - **AI/Agents**: Google ADK, Vertex AI (Gemini models)
-- **Cloud**: GCP (Cloud Run preferred, Europe regions: `europe-west1` or `europe-west3`)
+- **Cloud**: Cloud-agnostic (evaluating providers, Europe regions preferred)
 - **Frontend**: React + TypeScript (Vite, Tailwind CSS, TanStack Query)
-- **Infrastructure**: Terraform, Cloud Build/GitHub Actions
-
-See [PROJECT_GUIDELINES.md](PROJECT_GUIDELINES.md) for complete guidelines.
-
----
-
-## Pre-Work Protocol
-
-**Before ANY technical work**: Check skills first.
-
-See `.claude/rules/pre-work-protocol.md` for the full checklist.
-
-**Quick version**:
-1. Identify the technology (ADK, FastAPI, GCS, React, etc.)
-2. Search `.claude/skills/` for existing patterns
-3. Found? Use it. Not found? Investigate, then document.
-
----
-
-## Agent Memory
-
-All agents maintain memory files in `.claude/memory/` for persistent learning.
-
-See `.claude/rules/memory-protocol.md` for the mandatory protocol.
-
-**Key points**:
-- Memory files are **contextualized indexes** (1-2 pages max)
-- Read at session start, update at session end
-- Use STAR format for lessons learned
-- Detailed specs go in `docs/`, not memory
-
-**Your memory file**: `.claude/memory/memory-[agent-name].md`
-
----
-
-## Three-Tier Knowledge System
-
-| Tier | Location | Purpose |
-|------|----------|---------|
-| **Memory** | `.claude/memory/` | Project-specific context + learnings |
-| **Docs** | `docs/` | Detailed implementation plans, ADRs |
-| **Skills** | `.claude/skills/` | Technical patterns (auto-discovered) |
-
-**Rules** (`.claude/rules/`) load automatically and enforce standards.
-
-See [SKILLS_AND_AGENTS_GUIDE.md](docs/SKILLS_AND_AGENTS_GUIDE.md) for complete philosophy.
-
----
+- **Infrastructure**: Terraform, GitHub Actions
 
 ## Resources
 
-- **[PROJECT_GUIDELINES.md](PROJECT_GUIDELINES.md)** - Complete project guidelines
-- **[README.md](README.md)** - Project overview and setup
-- **[.claude/rules/](.claude/rules/)** - Mandatory protocols (auto-loaded)
-- **[.claude/skills/](.claude/skills/)** - Technical patterns (auto-discovered)
-- **[.claude/memory/](.claude/memory/)** - Agent memory files
-- **[docs/](docs/)** - Detailed documentation
+| Resource | Location |
+|----------|----------|
+| Technical patterns | [.claude/skills/](.claude/skills/) (auto-discovered) |
+| Agent memory | [.claude/memory/](.claude/memory/) |
+| Documentation | [docs/](docs/) |
+| Architecture guide | [docs/SKILLS_AND_AGENTS_GUIDE.md](docs/SKILLS_AND_AGENTS_GUIDE.md) |

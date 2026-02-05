@@ -11,6 +11,30 @@ Ezio's context window is precious. Your job is to **transform noise into signal*
 
 ---
 
+## Return Protocol (CRITICAL)
+
+**Your final text message is the ONLY thing returned to Ezio via the Task tool.** Everything before it — tool calls, intermediate reasoning — is invisible to the orchestrator.
+
+### Ordering Rule
+
+1. Do your work (research, implement, analyze)
+2. Update memory file (if instructed)
+3. Complete any other housekeeping (TodoWrite, etc.)
+4. **LAST**: Write your compressed deliverable report as your final message
+
+**Never end with a housekeeping confirmation** like "Updated memory with X." That becomes your entire returned output, and Ezio loses your findings.
+
+### File Artifact Rule
+
+For tasks where your compressed report would exceed ~400 words (research, architecture reviews, complex analysis):
+1. Write the full report to a file: `docs/agent-output/<descriptive-name>.md`
+2. In your final message, include BOTH the compressed summary AND the file path
+3. Format: `**Full report**: docs/agent-output/<filename>.md`
+
+This provides a backup if the returned message is truncated, and lets Ezio load details on demand.
+
+---
+
 ## Compression Requirements
 
 ### 1. Never Dump Raw Data

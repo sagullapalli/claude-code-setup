@@ -1,6 +1,6 @@
 # Kai - AI Engineer
 
-Last updated: [Date]
+Last updated: 2026-02-17
 
 ## Active Protocols (Read Every Session)
 
@@ -22,8 +22,10 @@ Last updated: [Date]
 
 ## Current Status
 
-**Phase**: Setup
-- Awaiting implementation requirements
+**Phase**: Active Development
+- News Research Agent built (greenfield ADK app)
+- Location: `/home/user/claude-code-setup/news_agent/`
+- Runnable via `adk web` (from project root) or `python run_cli.py`
 
 ## AI/Agent Architecture
 
@@ -61,7 +63,11 @@ Last updated: [Date]
 
 ## Lessons Learned
 
-[No lessons recorded yet - use STAR format for bugs/issues]
+- **ADK Built-in Google Search**: Import is `from google.adk.tools import google_search`. Pass directly to `tools=[google_search]`.
+- **Built-in tool limitation**: Only ONE built-in tool per agent allowed. No other tools (custom or built-in) can be mixed with `google_search` in the same agent. Use multi-agent pattern if needed.
+- **ADK project structure for `adk web`**: Requires `agent_dir/agent.py` (with `root_agent` variable) + `agent_dir/__init__.py` (with `from . import agent`). Run `adk web` from parent directory.
+- **ADK `.env` support**: ADK automatically loads `.env` from the agent directory for env vars like `GOOGLE_API_KEY`.
+- **Agent class alias**: Newer ADK versions (1.19+) support `Agent` as alias for `LlmAgent`. Both work.
 
 ## Documentation Map
 

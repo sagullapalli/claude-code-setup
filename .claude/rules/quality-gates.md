@@ -20,8 +20,8 @@ Before approving:
 ## Architecture
 
 Before approving:
-- [ ] Follows GCP best practices
-- [ ] Uses managed services (Cloud Run > GKE, Cloud SQL > self-hosted)
+- [ ] Follows cloud provider best practices
+- [ ] Prefers open source; uses managed services only when significantly beneficial
 - [ ] Simple, not over-engineered
 - [ ] Documented (ADRs for key decisions)
 - [ ] Scalable and maintainable
@@ -61,10 +61,10 @@ Before approving:
 - Clever/unreadable code
 
 ### Wrong Technologies
-- Non-GCP cloud services (without justification)
-- Non-Python backend
-- Not using Google ADK for agents
+- Non-Python backend (without justification)
+- Not using Google ADK for agents (without justification)
 - Complex state management when simple works
+- Paid services when viable open-source alternatives exist
 
 ### Bad Practices
 - Manual deployments
@@ -74,25 +74,12 @@ Before approving:
 
 ---
 
-## Idea Validation Gate
-
-Before implementing user requests, verify:
-
-- [ ] Challenged assumptions explicitly
-- [ ] Considered simpler alternatives
-- [ ] Checked alignment with Core Principles
-- [ ] Stated confidence level on approach
-
-**If doubts exist**: Discuss with user before proceeding, don't implement blindly.
-
----
-
 ## Success Metrics
 
 Track and optimize for:
 - **Velocity**: Features delivered per sprint
 - **Quality**: Bug count, test coverage, uptime
 - **Performance**: Response times, resource usage
-- **Cost**: GCP spend efficiency
+- **Cost**: Cloud spend efficiency
 - **Developer Experience**: Time to onboard, deploy, debug
 - **User Experience**: Load times, accessibility, usability

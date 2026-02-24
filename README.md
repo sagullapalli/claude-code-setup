@@ -1,18 +1,15 @@
 # Claude Code Multi-Agent Setup
 
-Custom UI and orchestration layer built on Claude Code SDK for managing multi-agent AI applications.
-
-## Overview
-
-This project provides a production-ready Claude Code setup with multi-agent orchestration for building fullstack applications. It includes 8 specialized agents, 60+ skill patterns, persistent memory, and automation hooks.
+Production-ready Claude Code configuration with multi-agent orchestration, persistent memory, auto-discovered skills, and automation hooks for building fullstack applications.
 
 ## Key Features
 
-- **Multi-Agent Orchestration**: 8 specialized agents coordinated by a central orchestrator
-- **Persistent Memory**: Agents learn and retain context across sessions
+- **Multi-Agent Orchestration**: 8 specialized agents coordinated by a central orchestrator (Ezio)
+- **Persistent Memory**: Agents retain context and learnings across sessions
 - **Auto-Discovered Skills**: 60+ technical patterns activated by context keywords
-- **Mandatory Rules**: 7 protocols ensuring quality, consistency, and honest feedback
-- **Hook Automation**: Logging, validation, and context sharing via Python/Bash scripts
+- **Mandatory Rules**: 6 protocols enforcing quality, boundaries, and honest feedback
+- **Hook Automation**: Logging, session archiving, context sharing, and response tracking
+- **Slash Commands**: `/handover`, `/prepare-pr`, `/discard-changes`
 
 ---
 
@@ -23,8 +20,8 @@ This project provides a production-ready Claude Code setup with multi-agent orch
 | **Backend** | Python 3.11+, FastAPI, PostgreSQL |
 | **AI/Agents** | Claude Code SDK, Google ADK, Vertex AI (Gemini) |
 | **Frontend** | React + TypeScript, Vite, Tailwind CSS, TanStack Query |
-| **Cloud** | GCP (Cloud Run, Cloud SQL, europe-west1/west3) |
-| **Infrastructure** | Terraform, GitHub Actions, Cloud Build |
+| **Cloud** | Cloud-agnostic (Europe regions preferred) |
+| **Infrastructure** | Terraform, GitHub Actions |
 
 ---
 
@@ -34,16 +31,16 @@ This project provides a production-ready Claude Code setup with multi-agent orch
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    Planning System (Ezio)                    │
+│                    Planning System (Ezio)                   │
 │  User Request → Plan → Delegate → Synthesize → Report       │
 └─────────────────────────┬───────────────────────────────────┘
                           │
-        ┌─────────────────┼─────────────────┐
-        ▼                 ▼                 ▼
-┌───────────────┐ ┌───────────────┐ ┌───────────────┐
+        ┌─────────────────┼──────────────────┐
+        ▼                 ▼                  ▼
+┌────────────────┐ ┌───────────────┐ ┌───────────────┐
 │ Scout: Research│ │ Specialists:  │ │ QA Agents:    │
-│ & Exploration │ │ Implementation│ │ Testing       │
-└───────────────┘ └───────────────┘ └───────────────┘
+│ & Exploration  │ │ Implementation│ │ Testing       │
+└────────────────┘ └───────────────┘ └───────────────┘
 ```
 
 The orchestrator (Ezio) **plans and coordinates** but never executes directly. Specialists handle implementation with their own context windows.
@@ -57,7 +54,7 @@ The orchestrator (Ezio) **plans and coordinates** but never executes directly. S
 | **Sage** | Solution Architect | Architecture decisions, design reviews, ADRs |
 | **Kai** | AI Engineer | Backend, APIs, AI agents (Python/FastAPI/ADK) |
 | **Iris** | Frontend Engineer | UI components, React/TypeScript, accessibility |
-| **Devo** | DevOps Engineer | Infrastructure, deployment, CI/CD (Terraform/GCP) |
+| **Devo** | DevOps Engineer | Infrastructure, deployment, CI/CD (Terraform) |
 | **Vera** | QA Tester | Testing strategy, test automation, coverage |
 | **Luna** | Frontend QA | Component tests, E2E, accessibility audits |
 
@@ -80,21 +77,12 @@ The orchestrator (Ezio) **plans and coordinates** but never executes directly. S
 │
 ├── .claude/
 │   ├── agents/               # 8 agent definitions
-│   │   ├── orchestrator.md
-│   │   ├── general-worker.md
-│   │   ├── solution-architect.md
-│   │   ├── ai-engineer.md
-│   │   ├── frontend-engineer.md
-│   │   ├── devops-engineer.md
-│   │   ├── qa-tester.md
-│   │   └── frontend-qa-specialist.md
-│   │
-│   ├── rules/                # 7 mandatory protocols (auto-loaded)
-│   │   ├── agent-delegation.md
+│   ├── commands/             # Slash commands (/handover, /prepare-pr, /discard-changes)
+│   ├── rules/                # 6 mandatory protocols (auto-loaded)
+│   │   ├── boundaries.md
 │   │   ├── compression-protocol.md
 │   │   ├── honest-feedback-protocol.md
 │   │   ├── memory-protocol.md
-│   │   ├── orchestrator-protocol.md
 │   │   ├── pre-work-protocol.md
 │   │   └── quality-gates.md
 │   │
@@ -108,7 +96,7 @@ The orchestrator (Ezio) **plans and coordinates** but never executes directly. S
 │   │   └── ...
 │   │
 │   ├── memory/               # Per-agent persistent files
-│   ├── hooks/                # Automation scripts
+│   ├── hooks/                # Automation scripts (Python/Bash)
 │   ├── context/              # Shared inter-agent state
 │   └── settings.json         # Hooks & permissions config
 │
@@ -127,13 +115,12 @@ These are auto-loaded and enforce consistent behavior:
 
 | Rule | Purpose |
 |------|---------|
-| **agent-delegation** | Sequential delegation, complete context handoffs |
+| **boundaries** | Three-tier permission system (Always Do / Ask First / Never Do) |
 | **compression-protocol** | Summarize findings, use file:line references |
 | **honest-feedback** | Challenge ideas, state confidence levels |
 | **memory-protocol** | STAR format for lessons, keep memory lean |
-| **orchestrator-protocol** | Plan before action, Scout-first pattern |
 | **pre-work-protocol** | Check skills before implementation |
-| **quality-gates** | Code review checklists |
+| **quality-gates** | Code review checklists (cloud-agnostic) |
 
 ---
 
@@ -156,11 +143,9 @@ Skills are discovered by keyword mentions. Major domains:
 
 ## Hooks and Observability (Optional)
 
-This setup includes hooks for observability, workflow automation, and protocol enforcement. **All hooks are optional** and can be customized, enabled, or disabled by editing `.claude/settings.json`.
+Hooks provide observability, workflow automation, and protocol enforcement. **All hooks are optional** — customize via `.claude/settings.json`.
 
-### Currently Configured Hooks
-
-These hooks are active in the default configuration:
+### Configured Hooks
 
 | Event | Script | Purpose |
 |-------|--------|---------|
@@ -169,80 +154,34 @@ These hooks are active in the default configuration:
 | `PostToolUse[*]` | `tool_trace_logger.py` | Log all tool calls to JSONL |
 | `PostToolUse[Task]` | `task_context_tracker.py` | Track agent task lifecycle (end) |
 | `PostToolUse[Task]` | `context_sharing.py` | Share context between agents |
+| `PostToolUse[Task]` | `agent_response_logger.py` | Log agent responses and deliverables |
 | `SessionEnd` | `session_analytics.py` | Generate session metrics report |
+| `SessionEnd` | `session_archiver.py` | Archive session data for future reference |
 
 ### Available but Not Configured
-
-These hooks exist in `.claude/hooks/` but are **not enabled by default**. Enable them by adding to `settings.json`:
 
 | Script | Recommended Event | Purpose |
 |--------|-------------------|---------|
 | `inject_shared_context.py` | `UserPromptSubmit` | Injects shared context from previous agents into prompts |
 
-**To enable `inject_shared_context.py`**, add this to your `settings.json`:
-```json
-"UserPromptSubmit": [
-  {
-    "hooks": [
-      {
-        "type": "command",
-        "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/inject_shared_context.py"
-      }
-    ]
-  }
-]
-```
-
 ### Output Files
 
-These files are generated by the configured hooks. They can be safely deleted and are git-ignored.
+Generated by hooks, safely deletable, and git-ignored:
 
-> **Tip:** Consider adding `.gitignore` files to `.claude/logs/` and `.claude/context/` to prevent runtime files from being accidentally committed.
-
-**Located in `.claude/logs/`:**
-
-| File | Purpose | Generated By |
-|------|---------|--------------|
-| `tool-trace.jsonl` | Detailed tool call history with timestamps, agent attribution, and parameters | `tool_trace_logger.py` |
-| `session-metrics.jsonl` | Session analytics (duration, files changed, agents used) | `session_analytics.py` |
-| `latest-session-report.txt` | Human-readable summary of most recent session | `session_analytics.py` |
-| `.active_tasks.json` | Current subagent task state (transient, auto-cleaned) | `task_context_tracker.py` |
-
-**Located in `.claude/context/`:**
-
-| File | Purpose | Generated By |
-|------|---------|--------------|
-| `shared-context.json` | Cross-agent decisions, constraints, and insights | `context_sharing.py` |
+| Location | File | Generated By |
+|----------|------|--------------|
+| `.claude/logs/` | `tool-trace.jsonl` | `tool_trace_logger.py` |
+| `.claude/logs/` | `session-metrics.jsonl` | `session_analytics.py` |
+| `.claude/logs/` | `latest-session-report.txt` | `session_analytics.py` |
+| `.claude/logs/` | `.active_tasks.json` | `task_context_tracker.py` |
+| `.claude/context/` | `shared-context.json` | `context_sharing.py` |
 
 ### Customization
 
-**To disable a hook**: Remove its entry from `.claude/settings.json`.
-
-**To enable an available hook**: Add it to the appropriate event in `settings.json` (see example above).
-
-**To modify a hook**: Edit the script in `.claude/hooks/`. All scripts use standard stdin/stdout patterns.
-
-**Hook types available**:
-- `command` - Runs a bash command or script
-- `prompt` - Uses LLM for intelligent decisions (only Stop/SubagentStop currently)
-
-**Example - Adding a custom hook**:
-```json
-{
-  "hooks": {
-    "UserPromptSubmit": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/my-validator.py"
-          }
-        ]
-      }
-    ]
-  }
-}
-```
+- **Disable**: Remove entry from `.claude/settings.json`
+- **Enable**: Add to appropriate event in `settings.json`
+- **Modify**: Edit scripts in `.claude/hooks/` (standard stdin/stdout)
+- **Hook types**: `command` (shell) or `prompt` (LLM-powered, Stop events only)
 
 ---
 
@@ -252,7 +191,7 @@ These files are generated by the configured hooks. They can be safely deleted an
 
 - Node.js 18+ (for frontend)
 - Python 3.11+ (for backend)
-- Claude Code CLI installed
+- [Claude Code CLI](https://docs.anthropic.com/en/docs/claude-code) installed
 
 ### Quick Start
 
@@ -261,19 +200,16 @@ These files are generated by the configured hooks. They can be safely deleted an
 git clone https://github.com/YOUR_USERNAME/claude-code-setup.git
 cd claude-code-setup
 
-# Install dependencies
-npm install
-
-# Start development
-npm run dev
+# Open Claude Code — everything auto-loads
+claude
 ```
 
-### Using the Claude Setup
+### How It Works
 
-1. Open Claude Code in this directory
-2. CLAUDE.md is auto-loaded with universal context
-3. Rules are auto-loaded to enforce protocols
-4. Skills are auto-discovered based on your conversation
+1. `CLAUDE.md` loads universal context automatically
+2. Rules in `.claude/rules/` enforce protocols on every interaction
+3. Skills in `.claude/skills/` are auto-discovered by keyword mentions
+4. Hooks in `.claude/hooks/` run on lifecycle events (session start/end, tool use)
 
 **Example interaction**:
 ```
@@ -324,7 +260,6 @@ Ezio: [Plans task with TodoWrite]
 | [TUTORIAL.md](docs/TUTORIAL.md) | Hands-on tutorial with examples |
 | [SKILLS_AND_AGENTS_GUIDE.md](docs/SKILLS_AND_AGENTS_GUIDE.md) | Knowledge system deep dive |
 | [rules-reference.md](docs/rules-reference.md) | Complete rules documentation |
-| [PROJECT_GUIDELINES.md](PROJECT_GUIDELINES.md) | Coding standards |
 
 ---
 
@@ -332,7 +267,7 @@ Ezio: [Plans task with TodoWrite]
 
 ### Simplicity First
 - Build exactly what's needed, nothing more
-- Use managed services over custom solutions
+- Prefer open source; use managed services only when significantly beneficial
 - Start monolithic, scale when necessary
 
 ### Honest Feedback Over Validation

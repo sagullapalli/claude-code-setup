@@ -50,6 +50,10 @@
                     {
                         "type": "command",
                         "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/context_sharing.py"
+                    },
+                    {
+                        "type": "command",
+                        "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/agent_response_logger.py"
                     }
                 ]
             }
@@ -60,6 +64,10 @@
                     {
                         "type": "command",
                         "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session_analytics.py"
+                    },
+                    {
+                        "type": "command",
+                        "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session_archiver.py"
                     }
                 ]
             }
